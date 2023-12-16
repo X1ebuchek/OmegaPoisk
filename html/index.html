@@ -27,12 +27,13 @@
     <p>Множество аниме со всего мира ждут вас!</p>
     <div class="search-container">
         <input type="text" class="search-box" placeholder="Search for anime...">
+        <button onclick="location.href='index.html?search=' + document.getElementsByClassName('search-box').item(0).value;">Search</button>
     </div>
 </div>
 
-<div class="content">
-    <h2>Популярные аниме</h2>
-    <div class="card-container">
+<div class="content" >
+    <h2 id="anime-container-title">Популярные аниме</h2>
+    <div class="card-container" id="content-container">
         <!-- Anime Card 1 -->
         <div onclick="location.href='content.html';" class="anime-card">
             <img src="../img/anime/AOT.jpeg" alt="Anime Title">
@@ -100,22 +101,7 @@
             </div>
         </div>
     </div>
-
-<!--    <h2>Top-rated Anime Titles</h2>-->
-<!--    <div class="anime-grid">-->
-<!--        &lt;!&ndash; Repeat this block for each top-rated anime &ndash;&gt;-->
-<!--        <div class="anime-item">-->
-<!--            <img src="path_to_attack_on_titan_image.jpg" alt="Attack on Titan">-->
-<!--            <div class="anime-title">Attack on Titan</div>-->
-<!--            <div class="anime-rating"><span>Rating:</span> 9.5</div>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; ... other top-rated anime items &ndash;&gt;-->
-<!--    </div>-->
 </div>
-
-<!--<div class="footer">-->
-<!--    <p>OmegaPoisk</p>-->
-<!--</div>-->
-
+<script src="../js/kek.js"></script>
 </body>
 </html>
