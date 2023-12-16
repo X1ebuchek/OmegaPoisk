@@ -1,0 +1,367 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+   body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    /*background: #f4f4f4;*/
+   /* background: #0a0a0a;*/
+    background: #141414;
+  }
+
+  .navbar {
+    background-color: #1c1c1e;
+    /*background-color: #262626; /* Adjust to match your header background color */
+    overflow: hidden;
+  }
+
+
+  .navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+
+  .navbar a:hover:not(.name) {
+    background-color: #ddd;
+    color: black;
+  }
+
+
+
+/* Стили для кнопок регистрации и авторизации */
+    .navbar .navbar-button {
+        background-color: #ffcc00; /* Цвет фона кнопок */
+        color: #262626; /* Цвет текста кнопок */
+        padding: 8px 20px; /* Уменьшенные отступы кнопок */
+        margin: 6px 40px; /* Убираем отступы по горизонтали и оставляем вертикальные отступы */
+        text-decoration: none;
+        border-radius: 20px; /* Закруглить углы кнопок */
+        transition: background-color 0.3s ease; /* Плавное изменение цвета фона при наведении */
+        float: right; /* Поместить кнопки справа */
+    }
+
+    .navbar .navbar-button:hover {
+        background-color: #ffc800; /* Цвет фона кнопок при наведении */
+        color: #262626; /* Цвет текста кнопок при наведении */
+    }
+
+  /* Отступ для кнопок на маленьких экранах */
+  @media (max-width: 768px) {
+      .navbar-button {
+          margin: 5px 8px; /* Уменьшенные отступы кнопок на маленьких экранах */
+      }
+  }
+
+
+  .header {
+    /*background-image: url("img/anime/back2.jpg");*/
+    background-size: no-repeat;
+    background-position: center;
+    background-size: cover;
+    /*background: #1a1a1a; /* or the specific color of the header */
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+    position: relative;
+  }
+
+
+  .header h1 {
+    margin-bottom: 10px; /* Spacing between the title and subtitle */
+    text-shadow: 1px 1px 2px black;
+  }
+
+  .header p {
+    text-shadow: 1px 1px 2px black;
+  }
+
+  .search-container {
+    position: absolute;
+    top: 80%; /* Position it at the bottom of the header */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%; /* Adjust width as needed */
+  }
+
+  .search-box {
+    width: 100%;
+    padding: 12px;
+    border: black;
+    border-radius: 20px; /* Rounded corners for the input */
+    font-size: 16px; /* Adjust font size as necessary */
+  }
+
+  .search-box::placeholder {
+    color: #ccc;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .search-box {
+      width: 60%; /* Wider search box on smaller screens */
+    }
+  }
+
+  @media (max-width: 480px) {
+    .search-box {
+      width: 80%; /* Wider search box on very small screens */
+    }
+  }
+
+  /* Main Content Area */
+  .content { padding: 20px; }
+
+  .content h2{
+     color: white;
+     text-align: center;
+     padding: 20px;
+  }
+
+
+  .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px; /* space between cards */
+      padding: 20px;
+      justify-content: center;
+    }
+
+    .anime-card {
+      position: relative;
+      background-color: #1c1c1e;
+      /*background-color: #fff;*/
+      width: 200px; /* fixed width */
+      border-radius: 10px;
+      overflow: hidden; /* Ensures the image doesn't break the border radius */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* subtle shadow */
+      transition: transform 0.2s ease-in-out; /* smooth transition for hover effect */
+    }
+
+    .anime-card:hover {
+      transform: scale(1.05); /* scale up card on hover */
+      cursor: pointer;
+    }
+
+    .anime-card img {
+      width: 100%;
+      height: auto;
+      display: block; /* remove extra space below the image */
+    }
+
+    .anime-card-info {
+      padding: 10px;
+      text-align: center;
+    }
+
+    .anime-card-title {
+      font-size: 18px;
+      margin-bottom: 5px; /* spacing between title and genres */
+      color: white;
+    }
+
+    .anime-card-genres {
+      font-size: 14px;
+      color: white;
+      align-items: flex-end;
+    }
+
+    .anime-card-genres span {
+      margin-right: 5px; /* spacing between genre tags */
+    }
+
+    .anime-card-rating {
+          background-color: #ffcc00; /* Gold color for the rating background */
+          color: white;
+          padding: 5px 10px;
+          border-radius: 15px; /* Rounded corners for the rating box */
+          position: absolute; /* Position it relative to the card */
+          top: 10px;
+          right: 10px; /* Position towards the top-right corner of the card */
+          font-weight: bold;
+        }
+
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .search-box { width: 80%; }
+  }
+
+  /* Стили для страницы с информацией об аниме #59d3bd*/
+  .anime-info {
+      display: flex;
+      margin: 20px;
+      background-color: #1c1c1e;
+      /*background-color: #1d3557;*/
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .anime-cover {
+      width: 250px;
+      height: auto;
+      border-radius: 10px 0 0 10px;
+  }
+
+  .anime-info-details {
+      padding: 20px;
+      flex: 1; /* Расширяет блок на всю доступную ширину */
+  }
+
+  .anime-description {
+      font-size: 16px;
+      color: white;
+      margin-bottom: 20px;
+  }
+
+  .anime-details {
+      margin-top: 20px;
+  }
+
+  .anime-details span {
+      display: block;
+      font-size: 16px;
+      color: white;
+      margin-bottom: 10px;
+  }
+
+  /* Стили для оценки, тэгов и студии */
+  .anime-rating, .anime-tags, .anime-studio {
+      font-weight: bold;
+      color: white;
+      padding:5px;
+  }
+
+  .anime-rating span, .anime-tags span, .anime-studio span {
+      color: #ffcc00;
+      margin-right: 5px;
+  }
+
+.reviews{
+    display: flex;
+    flex-direction: row;
+}
+
+
+/* Стили для формы добавления отзыва */
+.add-review {
+    width: 50%;
+    margin: 20px;
+    padding: 20px;
+    /*background-color: #1d3557; */
+    border:7px solid;
+    border-radius: 10px;
+    border-color: #1d3557;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    resize: none;
+}
+
+.add-review textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ffcc00;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color:#1c1c1e;
+    color: white;
+    resize: none; /* Запретить изменение размера элемента */
+    outline: none;
+}
+
+.add-review textarea:click{
+    border: 1px solid #ffcc00;
+}
+
+.add-review h3 {
+    font-size: 20px;
+    color: #ffcc00;
+    margin-bottom: 10px;
+}
+
+
+/* #262626 */
+.add-review input[type="submit"] {
+    background-color: #ffcc00;
+    color: #262626;
+    padding: 8px 12px;
+    margin-top:10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-review input[type="submit"]:hover {
+    background-color: #ffc800;
+}
+
+.rules{
+    margin: 20px;
+    padding: 20px;
+    text-align: center;
+    color:white;
+    width:50%;
+    border:7px solid;
+    border-radius: 10px;
+    border-color: #1d3557;
+}
+
+.rules-list{
+    padding-top:20px;
+    width: 50%;
+    margin:auto;
+    text-align:center;
+}
+
+.rules-list li{
+    width:70%;
+    padding:auto;
+    margin:auto;
+    text-align:left;
+    font-size: 22px;
+    color: white;
+    margin-bottom: 5px;
+}
+
+/* Стили для списка отзывов */
+.anime-reviews {
+    margin: 20px;
+    padding: 20px;
+    background-color: #1c1c1e;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.anime-reviews h3 {
+    font-size: 20px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.review-list {
+    list-style: none;
+    padding: 0;
+}
+
+.review-list li {
+    font-size: 14px;
+    color: white;
+    margin-bottom: 5px;
+}
+
+/* Остальные стили остаются без изменений */
+
+
+  /* Стили для подвала */
+  .footer {
+      background: #1a1a1a;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 20px;
+  }
