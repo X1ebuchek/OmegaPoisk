@@ -25,3 +25,26 @@ emailInput.addEventListener('blur', () => {
     emailLabel.classList.remove('active');
   }
 });
+
+const loginButton = document.getElementById('login-button');
+loginButton.addEventListener('click',() =>{
+    login = document.getElementById('login-form-login');
+    if (login.value == 'admin'){
+        localStorage.setItem('authenticated',"true");
+        window.location.href = 'index.html';
+    }else {
+        popup();
+    }
+});
+
+function popup(){
+    const popupContainer = document.getElementById('popupContainer');
+
+    // Перед показом окна устанавливаем новое положение справа
+    popupContainer.style.right = '20px';
+
+    setTimeout(function () {
+        // Закрываем окно через 5 секунд
+        popupContainer.style.right = '-300px'; // устанавливаем положение за пределы экрана
+    }, 5000);
+}

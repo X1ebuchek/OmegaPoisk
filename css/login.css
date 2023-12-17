@@ -23,7 +23,7 @@ body {
   overflow: hidden;
 }
 .wrapper:hover {
-  animation: animate 1s linear infinite;
+  animation: animate 3s linear infinite;
 }
 @keyframes animate {
   100% {

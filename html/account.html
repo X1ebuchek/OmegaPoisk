@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/account.css"> <!-- Include a separate CSS file for account-specific styles -->
+    <title>Личный кабинет - OmegaPoisk</title>
+    <style>
+
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <a class="name">OmegaPoisk</a>
+    <a href="index.html">Аниме</a>
+    <a href="movies.html">Фильмы</a>
+    <a href="tvshows.html">Сериалы</a>
+    <a href="manga.html">Манга</a>
+    <a href="game.html">Игры</a>
+
+    <!-- Updated dropdown structure -->
+    <div class="dropdown">
+        <a class="navbar-button" href="#">Иконка <i class="fas fa-chevron-down"></i></a>
+        <div class="dropdown-content">
+            <a href="login.html" id="login-button" style="display: none">Вход</a>
+            <a href="account.html" id="account-button" style="display: none">Личный кабинет</a>
+            <a href="addContent.html" id="add-content-button" style="display: none">Добавить контент</a>
+            <a href="index.html" onclick="setFalseAuthenticated()" id="close-button" style="display: none">Выход</a>
+        </div>
+    </div>
+
+    <!-- ... (other navigation items) ... -->
+</div>
+
+<div class="content">
+    <h2 id="account-title">Личный кабинет</h2>
+    <div class="account-info">
+        <div class="account-details">
+            <p><strong>Имя:</strong> John Doe</p>
+            <p><strong>Email:</strong> john@example.com</p>
+            <!-- Add more account details as needed -->
+        </div>
+        <div class="account-actions">
+            <button>Edit Profile</button>
+            <button>Change Password</button>
+        </div>
+    </div>
+</div>
+
+<script src="../js/kek.js"></script>
+<script src="../js/navbar.js"></script>
+</body>
+</html>

@@ -106,3 +106,5 @@ const string = urlParams.get('search');
 if (string) {
     searchContent(string);
 }
+
+

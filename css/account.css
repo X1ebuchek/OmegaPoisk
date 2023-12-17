@@ -1,0 +1,21 @@
+/* ... (previous CSS code) ... */
+
+/* Additional styles for the account page */
+#account-title {
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.account-info {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.account-details,
+.account-actions {
+    width: 48%; /* Adjust the width as needed */
+}
+
+/* ... (other existing styles) ... */

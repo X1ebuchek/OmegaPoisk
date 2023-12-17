@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../css/styles.css">
     <title>OmegaPoisk</title>
     <style>
@@ -18,8 +19,23 @@
     <a href="tvshows.html">Сериалы</a>
     <a href="manga.html">Манга</a>
     <a href="game.html">Игры</a>
-    <a class="navbar-button" href="login.html">Вход</a>
+    <a class="navbar-button" id="login-button" href="login.html" style="display: none">Вход</a>
+<!--    <a class="navbar-button" id="close-button" href="index.html" onclick="setFalseAuthenticated()" style="display: none">Выход</a>-->
+<!--    <a class="navbar-button" id="account-button" href="account.html" style="display: none">Личный кабинет</a>-->
+<!--    <a class="navbar-button" id="add-content-button" href="addContent.html" style="display: none">Добавить контент</a>-->
+
+
     <!-- Add more navigation items here -->
+</div>
+<div class="dropdown">
+    <a class="navbar-button1" id="account-dropdown">
+        <i class="fas fa-user"></i> <!-- User icon -->
+    </a>
+    <div class="dropdown-content">
+        <a href="account.html" id="account-button" style="display: none">Личный кабинет</a>
+        <a href="addContent.html" id="add-content-button" style="display: none">Добавить контент</a>
+        <a href="index.html" onclick="setFalseAuthenticated()" id="close-button" style="display: none">Выход</a>
+    </div>
 </div>
 
 <div class="header" style="background-image: url('../img/anime/back2.jpg');">
@@ -103,5 +119,6 @@
     </div>
 </div>
 <script src="../js/kek.js"></script>
+<script src="../js/navbar.js"></script>
 </body>
 </html>

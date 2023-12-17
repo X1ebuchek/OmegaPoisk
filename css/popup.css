@@ -1,0 +1,16 @@
+.popup-container {
+    position: fixed;
+    top: 20px;
+    right: -300px; /* начальное положение справа за пределами экрана */
+    transition: right 0.3s ease-in-out; /* анимация сглаженного выезда */
+}
+
+.popup {
+    background-color: #f44336;
+    color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
