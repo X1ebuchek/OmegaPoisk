@@ -26,9 +26,33 @@ emailInput.addEventListener('blur', () => {
   }
 });
 
+//
+//
+//JSON FORMAT FOR USER
+//
+//
+let user = {
+    id: 0,
+    login: "",
+    email: "",
+    pass:  "",
+    role:  "USER", // USER | ADMIN | CREATOR
+    token: ""
+}
+
 const loginButton = document.getElementById('login-button');
 loginButton.addEventListener('click',() =>{
     login = document.getElementById('login-form-login');
+    user.login = login.value;
+    user.pass = document.getElementById("password-form-login").value;
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:27401/auth/login");
+    xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+    console.log(JSON.stringify(user));
+    xhr.onload = () => {
+        console.log(xhr.responseText);
+    }
+    xhr.send(JSON.stringify(user));
     if (login.value == 'admin'){
         localStorage.setItem('authenticated',"true");
         window.location.href = 'index.html';
