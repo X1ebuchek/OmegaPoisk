@@ -40,6 +40,7 @@ input, textarea, select {
     color: white;
     border-radius: 4px;
     font-size: 14px;
+    resize: none;
 }
 
 button {
@@ -55,13 +56,13 @@ button {
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: white;
 }
 
 /* Tags Container Styles */
 
 #tagsContainer {
-    margin-bottom: 16px;
+    /*margin-bottom: 5px;*/
 }
 
 .selectBox {
@@ -90,22 +91,26 @@ button:hover {
     border-radius: 4px;
     overflow-y: auto;
     max-height: 100px;
+    width: 100%;
 }
 
 #checkboxes label {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Added to move the checkmark to the right */
-    padding: 8px;
+    justify-content: space-between;
+    padding-left: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
     width: 100%; /* Added to make the whole label clickable */
 }
 
 #checkboxes input {
-    text-align: right;
-    order: 2; /* Added to move the input to the end of the flex container */
-    height: 16px; /* Adjust the height as needed */
+    display: none;
+    position: absolute;
+    /*.order: 2; !* Move the input to the end of the flex container *!*/
+    height: 8px; /* Adjust the height as needed */
+    margin-left: 8px; /* Add some spacing between text and checkbox */
+    width: 100%;
 }
 
 #checkboxes label:hover {
@@ -119,4 +124,24 @@ button:hover {
 
 #checkboxes input:focus + label {
     outline: 2px solid #4caf50;
+}
+
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    color: #fff;
+    z-index: 1;
+    pointer-events: auto;
+}
+
+.close-button a {
+    text-decoration: none;
+    color: #fff;
+    pointer-events: auto;
+}
+
+.close-button a:hover {
+    text-decoration: underline;
 }

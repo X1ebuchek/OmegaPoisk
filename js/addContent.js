@@ -1,4 +1,4 @@
-addTags();
+getTags();
 var tagsOnWindow = [];
 var expanded = false;
 
@@ -14,15 +14,31 @@ function showCheckboxes() {
 }
 
 
-function addTags(){
+function getTags(){
     const checkboxes = document.getElementById('checkboxes');
-    var tags = ['action', 'drama', 'sport'];
+    var tags = [];
+    let xhr = new XMLHttpRequest();
+
+    xhr.open('GET', 'http://localhost:27401/api/read/all_tags');
+
+    xhr.send();
+
+    xhr.onload = function() {
+        console.log(xhr.responseText);
+        tags = JSON.parse(xhr.responseText);
+        console.log(tags);
+        addTags(tags)
+    };
+
+}
+
+function addTags(tags){
     for (const tagKey in tags) {
         const label = document.createElement('label');
-        label.innerText = tags[tagKey];
+        label.innerText = tags[tagKey].name;
         const tag = document.createElement('input');
         tag.type = 'checkbox';
-        tag.value = tags[tagKey];
+        tag.value = tags[tagKey].name;
         label.appendChild(tag);
         checkboxes.appendChild(label);
 
@@ -45,7 +61,7 @@ function addTextToOption(){
     const selectName = document.getElementById('selectName');
     selectName.innerHTML = '';
     for (const tag1 in tagsOnWindow) {
-        selectName.innerHTML += tagsOnWindow[tag1] + ", ";
+        selectName.innerHTML += tagsOnWindow[tag1] + " ";
     }
 }
 

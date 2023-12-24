@@ -12,7 +12,7 @@
 
 <div class="popup-container" id="popupContainer">
     <div class="popup" id="popup">
-        <p>Неправильный логин или пароль</p>
+        <p id="popupText">Неправильный логин или пароль</p>
     </div>
 </div>
 
@@ -44,7 +44,7 @@
         <form action="">
             <h2>Регистрация</h2>
             <div class="input-group">
-                <input type="text" required>
+                <input type="text" id="register-form-login" required>
                 <label>Имя пользователя</label>
             </div>
             <div class="input-group">
@@ -52,13 +52,13 @@
                 <label for="email">Email</label>
             </div>
             <div class="input-group">
-                <input type="password" required>
+                <input type="password" id="register-form-password" required>
                 <label>Пароль</label>
             </div>
             <div class="remember">
-                <label><input type="checkbox"> Я согласен с пользовательским соглашением</label>
+                <label><input type="checkbox" id="omega"> Я Омега</label>
             </div>
-            <button type="submit">Зарегистрироваться</button>
+            <button id="register-button">Зарегистрироваться</button>
             <div class="signUp-link">
                 <p>Уже есть аккаунт? <a href="#" class="signInBtn-link">Войти</a></p>
             </div>
