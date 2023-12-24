@@ -2,9 +2,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>addContent</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Content</title>
+    <link rel="stylesheet" href="../css/addContent.css">
 </head>
 <body>
 
+<div id="contentForm">
+    <h2>Добавить контент</h2>
+    <form id="Form">
+        <label for="title">Название:</label>
+        <input type="text" id="title" name="title" required>
+
+        <label for="description">Описание:</label>
+        <textarea id="description" name="description" rows="4" required></textarea>
+
+        <label for="imageInput">Выберите изображение:</label>
+        <input type="file" id="imageInput" name="image" accept="image/*" required>
+
+        <label>Тэги:</label>
+        <div id="tagsContainer">
+            <div class="selectBox" onclick="showCheckboxes()">
+                <select>
+                    <option id="selectName"></option>
+                </select>
+                <div class="overSelect"></div>
+            </div>
+            <div id="checkboxes"></div>
+        </div>
+
+        <label for="studio">Студия:</label>
+        <input type="text" id="studio" name="studio" required>
+
+        <label for="type">Вид контента:</label>
+        <select id="type">
+            <option value="anime">Аниме</option>
+            <option value="movie">Фильм</option>
+            <option value="tvshow">Сериал</option>
+            <option value="manga">Манга</option>
+            <option value="game">Игра</option>
+        </select>
+        <div id="extra">
+            <label>Количество серий:</label>
+            <input type="number">
+        </div>
+
+
+        <button type="button" onclick="saveContent()">Добавить</button>
+    </form>
+</div>
+
+<script src="../js/addContent.js"></script>
 </body>
 </html>

@@ -22,7 +22,26 @@ function searchContent(string) {
     // } catch (error) {
     //     console.error('Error fetching data:', error);
     // }
-    var data = JSON.parse('[{"id":"1","title":"Атака Титанов","image":"../img/anime/AOT.jpeg","genres":["Экшен","Драма"],"rating":"8.6/10"},{"id":"2","title":"Клинок, рассекающий демонов","image":"../img/anime/DS.jpeg","genres":["Экшен","Фэнтези"],"rating":"8.5/10"},{"id":"3","title":"Наруто","image":"../img/anime/naruto.jpeg","genres":["Экшен","Приключения"],"rating":"8.0/10"},{"id":"4","title":"Магическая битва","image":"../img/anime/magic_battle.jpeg","genres":["Экшен","Фэнтези"],"rating":"8.6/10"},{"id":"5","title":"Невероятное приключение ДжоДжо","image":"../img/anime/jojo.jpeg","genres":["Экшен","Приключения"],"rating":"7.9/10"},{"id":"6","title":"Атака Титанов","image":"../img/anime/AOT.jpeg","genres":["Экшен","Драма"],"rating":"8.6/10"}]');
+
+    fetch('http://localhost:27401/api/read/anime', {
+        method: 'GET'
+    })
+        .then(response => response.json())
+            .then(data => {
+                    if (data.success) {
+                        console.log('successfully!');
+                        console.log(data);
+                    } else {
+                        console.log('Failed');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    console.log('An error occurred');
+                });
+
+
+    //var data = JSON.parse('[{"id":"1","title":"Атака Титанов","image":"../img/anime/AOT.jpeg","genres":["Экшен","Драма"],"rating":"8.6/10"},{"id":"2","title":"Клинок, рассекающий демонов","image":"../img/anime/DS.jpeg","genres":["Экшен","Фэнтези"],"rating":"8.5/10"},{"id":"3","title":"Наруто","image":"../img/anime/naruto.jpeg","genres":["Экшен","Приключения"],"rating":"8.0/10"},{"id":"4","title":"Магическая битва","image":"../img/anime/magic_battle.jpeg","genres":["Экшен","Фэнтези"],"rating":"8.6/10"},{"id":"5","title":"Невероятное приключение ДжоДжо","image":"../img/anime/jojo.jpeg","genres":["Экшен","Приключения"],"rating":"7.9/10"},{"id":"6","title":"Атака Титанов","image":"../img/anime/AOT.jpeg","genres":["Экшен","Драма"],"rating":"8.6/10"}]');
     //var data1 = JSON.parse('[{"title":"Атака Титанов","image":"../img/anime/AOT.jpeg","genres":["Экшен","Драма"],"rating":"8.6/10"},{"title":"Клинок, рассекающий демонов","image":"../img/anime/DS.jpeg","genres":["Экшен","Фэнтези"],"rating":"8.5/10"},{"title":"Наруто","image":"../img/anime/naruto.jpeg","genres":["Экшен","Приключения"],"rating":"8.0/10"},{"title":"Магическая битва","image":"../img/anime/magic_battle.jpeg","genres":["Экшен","Фэнтези"],"rating":"8.6/10"},{"title":"Невероятное приключение ДжоДжо","image":"../img/anime/jojo.jpeg","genres":["Экшен","Приключения"],"rating":"7.9/10"},{"title":"Атака Титанов","image":"../img/anime/AOT.jpeg","genres":["Экшен","Драма"],"rating":"8.6/10"}]');
 
     //data2 = data;
@@ -105,6 +124,6 @@ const string = urlParams.get('search');
 // Fetch and update anime data
 if (string) {
     searchContent(string);
-}
+}else searchContent();
 
 
