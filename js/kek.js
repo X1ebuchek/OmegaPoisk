@@ -1,5 +1,6 @@
 
 var isRedirect = false;
+var hidden = true;
 
 function pop(){
     if (isRedirect === true){
@@ -24,13 +25,18 @@ function popup(text){
 }
 
 function searchContent(string) {
+    hidden = true;
     const contentContainer = document.getElementById('content-container');
 
     contentContainer.innerHTML = '';
 
     let xhr = new XMLHttpRequest();
 
-    xhr.open('GET', 'http://localhost:27401/api/read/anime');
+    var path = window.location.pathname;
+    var page = path.split("/").pop();
+    var name = page.split(".")[0];
+
+    xhr.open('GET', 'http://localhost:27401/api/read/' + name);
 
     xhr.send();
 
@@ -43,14 +49,19 @@ function searchContent(string) {
 }
 
 function searchContentInCreatorMode(string) {
+    hidden = false;
     const contentContainer = document.getElementById('content-container');
 
     contentContainer.innerHTML = '';
 
     let xhr = new XMLHttpRequest();
 
-    xhr.open('GET', 'http://localhost:27401/api/read/anime');
-
+    var path = window.location.pathname;
+    var page = path.split("/").pop();
+    var name = page.split(".")[0];
+    xhr.open('GET', 'http://localhost:27401/api/creator/read/' + name);
+    console.log(JSON.parse(localStorage.getItem('user')).token);
+    xhr.setRequestHeader("Authorization", "Bearer " + JSON.parse(localStorage.getItem('user')).token);
     xhr.send();
 
     xhr.onload = function() {
@@ -74,6 +85,15 @@ function createCard(item) {
     // Create a new card element
     const card = document.createElement('div');
     card.className = 'anime-card';
+
+    const deleteButton = document.createElement('div');
+    deleteButton.className = 'delete-button';
+    if (hidden) deleteButton.hidden = 'hidden';
+
+    const aX = document.createElement('a');
+    aX.id = 'delete-button';
+    aX.innerText = '✖';
+    deleteButton.appendChild(aX)
 
     const imageContainer = document.createElement('div');
     imageContainer.className = 'anime-card-image-container';
@@ -109,12 +129,34 @@ function createCard(item) {
     info.appendChild(title);
     info.appendChild(genres);
 
+    card.appendChild(deleteButton);
     card.appendChild(imageContainer);
     card.appendChild(info);
     card.appendChild(rating);
 
-    card.addEventListener('click', function () {
-        window.location.href = 'content.html?id='+item.id;
+    aX.addEventListener('click', function ()  {
+        let xhr = new XMLHttpRequest();
+
+        var path = window.location.pathname;
+        var page = path.split("/").pop();
+        var name = page.split(".")[0];
+        xhr.open('POST', 'http://localhost:27401/api/creator/del/' + name + "/" + item.content.id);
+        console.log(JSON.parse(localStorage.getItem('user')).token);
+        xhr.setRequestHeader("Authorization", "Bearer " + JSON.parse(localStorage.getItem('user')).token);
+        xhr.send();
+
+        xhr.onload = function() {
+            content = JSON.parse(xhr.responseText)
+            window.location.href = '.';
+            //console.log(content[0].avgRating)
+        };
+    });
+
+    image.addEventListener('click', function () {
+        var path = window.location.pathname;
+        var page = path.split("/").pop();
+        var name = page.split(".")[0];
+        window.location.href = 'content.html?id='+item.content.id + "&type="+name;
     });
 
     return card;
@@ -124,8 +166,10 @@ const switchElement = document.querySelector('.switch input');
 
 switchElement.addEventListener('change', function() {
     var isChecked = switchElement.checked;
-
-    var redirectUrl = isChecked ? 'index.html?creator=true' : 'index.html';
+    var path = window.location.pathname;
+    var page = path.split("/").pop();
+    var name = page.split(".")[0];
+    var redirectUrl = isChecked ? name + '.html?creator=true' : name + '.html';
 
     window.location.href = redirectUrl;
 });

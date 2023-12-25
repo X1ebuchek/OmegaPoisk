@@ -146,7 +146,8 @@ button {
       position: relative;
       background-color: #1c1c1e;
       /*background-color: #fff;*/
-      width: 200px; /* fixed width */
+      width: 220px; /* fixed width */
+      height: 375px;
       border-radius: 10px;
       overflow: hidden; /* Ensures the image doesn't break the border radius */
       box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* subtle shadow */
@@ -437,4 +438,25 @@ button {
     border-radius: 20px; /* Закруглить углы кнопок */
     transition: background-color 0.3s ease; /* Плавное изменение цвета фона при наведении */
     float: right; /* Поместить кнопки справа */
+}
+
+.delete-button {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 5px;
+    font-size: 24px;
+    color: #f60f0f;
+    z-index: 1;
+    pointer-events: auto;
+}
+
+.delete-button a {
+    text-decoration: none;
+    color: #ff1111;
+    pointer-events: auto;
+}
+
+.delete-button a:hover {
+    text-decoration: underline;
 }

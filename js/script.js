@@ -58,7 +58,7 @@ loginButton.addEventListener('click',() =>{
         } else {
             localStorage.setItem('user',xhr.responseText);
             isRedirect = true;
-            window.location.href = 'index.html';
+            window.location.href = 'anime.html';
         }
     }
 });
@@ -91,12 +91,12 @@ regButton.addEventListener('click',() =>{
             localStorage.setItem('user',xhr.responseText);
             popup("Ура");
             isRedirect = true;
-            window.location.href = 'index.html';
+            window.location.href = 'anime.html';
         }
     }
     // if (login.value == 'admin'){
     //     localStorage.setItem('authenticated',"true");
-    //     window.location.href = 'index.html';
+    //     window.location.href = 'anime.html';
     // }else {
     //     popup("Такой пользователь уже существует");
     // }

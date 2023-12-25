@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/toggle.css">
+    <link rel="stylesheet" href="../css/popup.css">
     <title>OmegaPoisk</title>
     <style>
 
@@ -13,16 +16,41 @@
 
 <div class="navbar">
     <a class="name">OmegaPoisk</a>
-    <a href="index.html">Аниме</a>
-    <a href="movies.html">Фильмы</a>
-    <a href="tvshows.html">Сериалы</a>
-    <a href="manga.html">Манга</a>
+    <a href="anime.html">Аниме</a>
+    <a href="movie.html">Фильмы</a>
+    <a href="tv_show.html">Сериалы</a>
+    <a href="comic.html">Манга</a>
     <a href="game.html">Игры</a>
-    <a class="navbar-button" href="login.html">Вход</a>
-    <!-- Add more navigation items here -->
+    <a class="navbar-button" id="login-button" href="login.html" style="display: none">Вход</a>
+
 </div>
 
+<div class="switch-container" style="display: none">
+    <label class="switch-label">Пользователь</label>
+    <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+    </label>
+    <label class="switch-label">Создатель</label>
+</div>
+<div class="dropdown">
+    <a class="navbar-button1" id="account-dropdown">
+        <i class="fas fa-user"></i> <!-- User icon -->
+    </a>
+    <div class="dropdown-content">
+        <a href="account.html" id="account-button" style="display: none">Личный кабинет</a>
+        <a href="addContent.html" id="add-content-button" style="display: none">Добавить контент</a>
+        <a href="anime.html" onclick="setFalseAuthenticated()" id="close-button" style="display: none">Выход</a>
+    </div>
+</div>
+
+
 <div class="header" style="background-image: url('../img/game/back2.jpg'); background-position: center 35%;">
+    <div class="popup-container" id="popupContainer">
+        <div class="popup" id="popup" style="background-color: #4caf50">
+            <p id="popupText"></p>
+        </div>
+    </div>
     <h1>Найдите свою любимую игру с помощью OmegaPoisk</h1>
     <p>Множество игр со всего мира ждут вас!</p>
     <div class="search-container">
@@ -32,7 +60,7 @@
 
 <div class="content">
     <h2>Популярные фильмы</h2>
-    <div class="card-container">
+    <div class="card-container" id="content-container">
         <!-- Anime Card 1 -->
         <div class="anime-card">
             <img src="../img/movies/zel_mil.webp" alt="Anime Title">
@@ -117,5 +145,7 @@
 <!--    <p>OmegaPoisk</p>-->
 <!--</div>-->
 
+<script src="../js/kek.js"></script>
+<script src="../js/navbar.js"></script>
 </body>
 </html>

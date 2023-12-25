@@ -1,55 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/account.css"> <!-- Include a separate CSS file for account-specific styles -->
+    <!-- Include your meta tags, stylesheets, and other necessary links here -->
+    <!-- ... -->
     <title>Личный кабинет - OmegaPoisk</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/toggle.css">
+    <link rel="stylesheet" href="../css/popup.css">
     <style>
+        /* Include your styles specific to the personal account page here */
+        body {
+            background: #141414;
+        }
 
+        .navbar {
+            background-color: #1c1c1e;
+        }
+
+        .header {
+            background-image: url('../img/anime/back2.jpg');
+        }
+
+        .header h1,
+        .header p {
+            color: white;
+        }
+
+        .content {
+            padding: 20px;
+            background-color: #1c1c1e;
+            color: white;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .user-info img {
+            border-radius: 50%;
+            margin-right: 20px;
+            width: 200px; /* Set a fixed width for the image */
+            height: 200px; /* Set a fixed height for the image */
+            overflow: hidden;
+        }
+
+        .upload-icon {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background-color: #1c1c1e;
+            color: white;
+            padding: 5px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+        }
+
+        .user-info:hover .upload-icon {
+            display: block;
+        }
+
+        .upload-icon:hover {
+            background-color: #aaa; /* Change color on hover */
+        }
+
+        .user-info input[type="file"] {
+            display: none;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+            /*padding-top: 70px;*/
+        }
+
+        .user-details p {
+            margin: 5px 0;
+        }
+
+        .content-lists {
+            background-color: #1c1c1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-lists h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .anime-card {
+            background-color: #1c1c1e;
+            width: 100%;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .anime-card h3 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .anime-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .anime-card ul li {
+            font-size: 16px;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
 
 <div class="navbar">
-    <a class="name">OmegaPoisk</a>
-    <a href="index.html">Аниме</a>
-    <a href="movies.html">Фильмы</a>
-    <a href="tvshows.html">Сериалы</a>
-    <a href="manga.html">Манга</a>
-    <a href="game.html">Игры</a>
+    <!-- Your navigation links -->
+</div>
 
-    <!-- Updated dropdown structure -->
-    <div class="dropdown">
-        <a class="navbar-button" href="#">Иконка <i class="fas fa-chevron-down"></i></a>
-        <div class="dropdown-content">
-            <a href="login.html" id="login-button" style="display: none">Вход</a>
-            <a href="account.html" id="account-button" style="display: none">Личный кабинет</a>
-            <a href="addContent.html" id="add-content-button" style="display: none">Добавить контент</a>
-            <a href="index.html" onclick="setFalseAuthenticated()" id="close-button" style="display: none">Выход</a>
-        </div>
-    </div>
-
-    <!-- ... (other navigation items) ... -->
+<div class="header" style="background-image: url('../img/anime/back2.jpg');">
+    <h1>Личный кабинет</h1>
 </div>
 
 <div class="content">
-    <h2 id="account-title">Личный кабинет</h2>
-    <div class="account-info">
-        <div class="account-details">
-            <p><strong>Имя:</strong> John Doe</p>
-            <p><strong>Email:</strong> john@example.com</p>
-            <!-- Add more account details as needed -->
+    <div class="user-info">
+        <div class="upload-container">
+            <label for="file-upload" class="user-photo">
+                <img id="user-photo-img" src="../img/clear.jpg" alt="User Photo">
+
+            </label>
+<!--            <label for="file-upload" class="upload-icon">-->
+<!--                <i class="fas fa-upload"></i>-->
+<!--            </label>-->
+            <input hidden="hidden" type="file" id="file-upload" accept="image/*" onchange="previewImage()">
         </div>
-        <div class="account-actions">
-            <button>Edit Profile</button>
-            <button>Change Password</button>
+        <div class="user-details">
+            <p><strong>Логин:</strong> YourUsername</p>
+            <p><strong>Почта:</strong> your.email@example.com</p>
+        </div>
+    </div>
+
+    <div class="content-lists">
+        <h2>Ваши списки контента</h2>
+
+        <div class="anime-card">
+            <h3>Просмотренные аниме</h3>
+            <ul>
+                <li>Атака Титанов</li>
+                <li>Клинок, рассекающий демонов</li>
+                <!-- Add more items as needed -->
+            </ul>
+        </div>
+
+        <div class="anime-card">
+            <h3>Избранное</h3>
+            <ul>
+                <li>Наруто</li>
+                <li>Магическая битва</li>
+                <!-- Add more items as needed -->
+            </ul>
         </div>
     </div>
 </div>
 
-<script src="../js/kek.js"></script>
-<script src="../js/navbar.js"></script>
+<div class="footer">
+    <!-- Your footer content -->
+</div>
+
+<script>
+    function previewImage() {
+        const fileInput = document.getElementById('file-upload');
+        const imgElement = document.getElementById('user-photo-img');
+
+        const file = fileInput.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                imgElement.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function triggerFileInput() {
+        document.getElementById('file-upload').click();
+    }
+</script>
+
+<!-- Include your script tags for any JavaScript files -->
+<!-- ... -->
+
 </body>
 </html>

@@ -121,7 +121,7 @@ function saveContent() {
         })
 
         isRedirect = true;
-        window.location.href = 'index.html';
+        //window.location.href = 'anime.html';
         //console.log(json);
 
         // let xhr = new XMLHttpRequest();

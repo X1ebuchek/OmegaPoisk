@@ -1,21 +1,121 @@
-/* ... (previous CSS code) ... */
+/* Include your styles specific to the personal account page here */
+body {
+    background: #141414;
+}
 
-/* Additional styles for the account page */
-#account-title {
+.navbar {
+    background-color: #1c1c1e;
+}
+
+.header {
+    background-image: url('../img/anime/back2.jpg');
+}
+
+.header h1,
+.header p {
+    color: white;
+}
+
+.content {
+    padding: 20px;
+    background-color: #1c1c1e;
+    color: white;
+}
+
+.user-info {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    position: relative;
+    cursor: pointer;
+}
+
+.user-info img {
+    border-radius: 50%;
+    margin-right: 20px;
+    width: 200px; /* Set a fixed width for the image */
+    height: 200px; /* Set a fixed height for the image */
+}
+
+.upload-icon {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #1c1c1e;
+    color: white;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+}
+
+.user-info:hover .upload-icon {
+    display: block;
+}
+
+.upload-icon:hover {
+    background-color: #aaa; /* Change color on hover */
+}
+
+.user-info input[type="file"] {
+    display: none;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Align items to the left */
+    justify-content: center; /* Center vertically */
+    flex: 1; /* Expand to fill available space */
+}
+
+.user-details p {
+    margin: 5px 0;
+    text-align: right; /* Align text to the right */
+}
+
+.content-lists {
+    background-color: #1c1c1e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.content-lists h2 {
+    color: white;
+    margin-bottom: 20px;
+}
+
+.anime-card {
+    background-color: #1c1c1e;
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.anime-card h3 {
+    color: white;
+    margin-bottom: 10px;
+}
+
+.anime-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.anime-card ul li {
+    font-size: 16px;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.footer {
+    background: #1a1a1a;
     color: white;
     text-align: center;
     padding: 20px;
+    margin-top: 20px;
 }
-
-.account-info {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-}
-
-.account-details,
-.account-actions {
-    width: 48%; /* Adjust the width as needed */
-}
-
-/* ... (other existing styles) ... */

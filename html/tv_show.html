@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/toggle.css">
+    <link rel="stylesheet" href="../css/popup.css">
+    <title>OmegaPoisk</title>
+    <style>
+
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <a class="name">OmegaPoisk</a>
+    <a href="anime.html">Аниме</a>
+    <a href="movie.html">Фильмы</a>
+    <a href="tv_show.html">Сериалы</a>
+    <a href="comic.html">Манга</a>
+    <a href="game.html">Игры</a>
+    <a class="navbar-button" id="login-button" href="login.html" style="display: none">Вход</a>
+    <!-- Add more navigation items here -->
+</div>
+
+<div class="switch-container" style="display: none">
+    <label class="switch-label">Пользователь</label>
+    <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+    </label>
+    <label class="switch-label">Создатель</label>
+</div>
+<div class="dropdown">
+    <a class="navbar-button1" id="account-dropdown">
+        <i class="fas fa-user"></i> <!-- User icon -->
+    </a>
+    <div class="dropdown-content">
+        <a href="account.html" id="account-button" style="display: none">Личный кабинет</a>
+        <a href="addContent.html" id="add-content-button" style="display: none">Добавить контент</a>
+        <a href="anime.html" onclick="setFalseAuthenticated()" id="close-button" style="display: none">Выход</a>
+    </div>
+</div>
+
+<div class="header" style="background-image: url('../img/tv_show/back2.jpg'); background-position: center 20%;">
+    <div class="popup-container" id="popupContainer">
+        <div class="popup" id="popup" style="background-color: #4caf50">
+            <p id="popupText"></p>
+        </div>
+    </div>
+    <h1>Найдите свой любимый сериал с помощью OmegaPoisk</h1>
+    <p>Множество сериалов со всего мира ждут вас!</p>
+    <div class="search-container">
+        <input type="text" class="search-box" placeholder="Search for tv show...">
+    </div>
+</div>
+
+<div class="content">
+    <h2>Популярные фильмы</h2>
+    <div class="card-container" id="content-container">
+        <!-- Anime Card 1 -->
+        <div class="anime-card">
+            <img src="../img/movies/zel_mil.webp" alt="Anime Title">
+            <div class="anime-card-info">
+                <div class="anime-card-title">Зеленая миля</div>
+                <div class="anime-card-genres">
+                    <span>Экшен</span>
+                    <span>Фэнтези</span>
+                </div>
+            </div>
+            <div class="anime-card-rating">
+                <span>9.1</span>/10
+            </div>
+        </div>
+        <div class="anime-card">
+            <img src="../img/movies/pob_shou.webp" alt="Anime Title">
+            <div class="anime-card-info">
+                <div class="anime-card-title">Побег из Шоушенка</div>
+                <div class="anime-card-genres">
+                    <span>Драма</span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="anime-card-rating">
+                <span>9.1</span>/10
+            </div>
+        </div>
+        <div class="anime-card">
+            <img src="../img/anime/naruto.jpeg" alt="Anime Title">
+            <div class="anime-card-info">
+                <div class="anime-card-title">Наруто</div>
+                <div class="anime-card-genres">
+                    <span>Экшен</span>
+                    <span>Приключения</span>
+                </div>
+            </div>
+            <div class="anime-card-rating">
+                <span>8.0</span>/10
+            </div>
+        </div>
+        <div class="anime-card">
+            <img src="../img/anime/magic_battle.jpeg" alt="Anime Title">
+            <div class="anime-card-info">
+                <div class="anime-card-title">Магическая битва</div>
+                <div class="anime-card-genres">
+                    <span>Экшен</span>
+                    <span>Фэнтези</span>
+                </div>
+            </div>
+            <div class="anime-card-rating">
+                <span>8.6</span>/10
+            </div>
+        </div>
+        <div class="anime-card">
+            <img src="../img/anime/jojo.jpeg" alt="Anime Title">
+            <div class="anime-card-info">
+                <div class="anime-card-title">Невероятное приключение ДжоДжо</div>
+                <div class="anime-card-genres">
+                    <span>Экшен</span>
+                    <span>Приключения</span>
+                </div>
+            </div>
+            <div class="anime-card-rating">
+                <span>7.9</span>/10
+            </div>
+        </div>
+    </div>
+
+    <!--    <h2>Top-rated Anime Titles</h2>-->
+    <!--    <div class="anime-grid">-->
+    <!--        &lt;!&ndash; Repeat this block for each top-rated anime &ndash;&gt;-->
+    <!--        <div class="anime-item">-->
+    <!--            <img src="path_to_attack_on_titan_image.jpg" alt="Attack on Titan">-->
+    <!--            <div class="anime-title">Attack on Titan</div>-->
+    <!--            <div class="anime-rating"><span>Rating:</span> 9.5</div>-->
+    <!--        </div>-->
+    <!--        &lt;!&ndash; ... other top-rated anime items &ndash;&gt;-->
+    <!--    </div>-->
+</div>
+
+<!--<div class="footer">-->
+<!--    <p>OmegaPoisk</p>-->
+<!--</div>-->
+<script src="../js/kek.js"></script>
+<script src="../js/navbar.js"></script>
+</body>
+</html>
