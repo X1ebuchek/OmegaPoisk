@@ -460,3 +460,68 @@ button {
 .delete-button a:hover {
     text-decoration: underline;
 }
+
+#tagsContainer {
+    /*margin-bottom: 5px;*/
+}
+
+.selectBox {
+    position: relative;
+}
+
+.selectBox select {
+    width: 100%;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.overSelect {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+/* Improved Checkbox Styles */
+
+#checkboxes {
+    display: none;
+    border: 1px solid #141414;
+    border-radius: 4px;
+    overflow-y: auto;
+    max-height: 100px;
+    width: 100%;
+}
+
+#checkboxes label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%; /* Added to make the whole label clickable */
+}
+
+#checkboxes input {
+    display: none;
+    position: absolute;
+    /*.order: 2; !* Move the input to the end of the flex container *!*/
+    height: 8px; /* Adjust the height as needed */
+    margin-left: 8px; /* Add some spacing between text and checkbox */
+    width: 100%;
+}
+
+#checkboxes label:hover {
+    background-color: #141414;
+}
+
+#checkboxes input:checked + label {
+    background-color: #4caf50;
+    color: #141414;
+}
+
+#checkboxes input:focus + label {
+    outline: 2px solid #4caf50;
+}

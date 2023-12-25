@@ -141,14 +141,12 @@ function createCard(item) {
         var page = path.split("/").pop();
         var name = page.split(".")[0];
         xhr.open('POST', 'http://localhost:27401/api/creator/del/' + name + "/" + item.content.id);
-        console.log(JSON.parse(localStorage.getItem('user')).token);
+
         xhr.setRequestHeader("Authorization", "Bearer " + JSON.parse(localStorage.getItem('user')).token);
         xhr.send();
 
         xhr.onload = function() {
-            content = JSON.parse(xhr.responseText)
-            window.location.href = '.';
-            //console.log(content[0].avgRating)
+            location.reload();
         };
     });
 
@@ -156,7 +154,8 @@ function createCard(item) {
         var path = window.location.pathname;
         var page = path.split("/").pop();
         var name = page.split(".")[0];
-        window.location.href = 'content.html?id='+item.content.id + "&type="+name;
+        if (creator) window.location.href = 'content.html?id='+item.content.id + "&type="+name + "&creator=true";
+        else window.location.href = 'content.html?id='+item.content.id + "&type="+name;
     });
 
     return card;
