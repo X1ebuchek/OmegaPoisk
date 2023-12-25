@@ -57,6 +57,7 @@ loginButton.addEventListener('click',() =>{
             popup("Неправильный логин или пароль");
         } else {
             localStorage.setItem('user',xhr.responseText);
+            isRedirect = true;
             window.location.href = 'index.html';
         }
     }
@@ -88,7 +89,8 @@ regButton.addEventListener('click',() =>{
             popup("Такой пользователь уже существует");
         } else {
             localStorage.setItem('user',xhr.responseText);
-            popup("Ура")
+            popup("Ура");
+            isRedirect = true;
             window.location.href = 'index.html';
         }
     }

@@ -1,6 +1,9 @@
 getTags();
+var listTags = [];
 var tagsOnWindow = [];
 var expanded = false;
+var urlAdd = 'http://localhost:27401/api/creator/add/anime';
+var extraField = "seriesNum";
 
 function showCheckboxes() {
     var checkboxes = document.getElementById("checkboxes");
@@ -27,6 +30,7 @@ function getTags(){
         console.log(xhr.responseText);
         tags = JSON.parse(xhr.responseText);
         console.log(tags);
+        //listTags = tags;
         addTags(tags)
     };
 
@@ -44,9 +48,9 @@ function addTags(tags){
 
         tag.addEventListener('change', function () {
             if (this.checked) {
-                tagsOnWindow.push(tag.value);
+                tagsOnWindow.push(tags[tagKey]);
             } else {
-                var index = tagsOnWindow.indexOf(tag.value);
+                var index = tagsOnWindow.indexOf(tags[tagKey]);
                 if (index !== -1) {
                     tagsOnWindow.splice(index, 1);
                 }
@@ -61,7 +65,7 @@ function addTextToOption(){
     const selectName = document.getElementById('selectName');
     selectName.innerHTML = '';
     for (const tag1 in tagsOnWindow) {
-        selectName.innerHTML += tagsOnWindow[tag1] + " ";
+        selectName.innerHTML += tagsOnWindow[tag1].name + " ";
     }
 }
 
@@ -70,36 +74,75 @@ function saveContent() {
     const title = document.getElementById('title').value;
     const description = document.getElementById('description').value;
     const imageInput = document.getElementById('imageInput');
-    const tags = document.getElementById('tags').value;
+    //const tags = document.getElementById('tags').value;
     const studio = document.getElementById('studio').value;
+    var extraInput = document.getElementById('extra-input').value;
 
-    if (title && description && imageInput.files.length > 0 && tags && studio) {
+    if (extraInput === "Да"){
+        extraInput = true;
+    }else if (extraInput === "Нет"){
+        extraInput = false;
+    }
+    console.log(extraInput);
+
+    if (title && description && imageInput.files.length > 0 && studio) {
         const formData = new FormData();
-        formData.append('title', title);
-        formData.append('description', description);
-        formData.append('image', imageInput.files[0]);
-        formData.append('tags', tags);
-        formData.append('studio', studio);
 
-        fetch('/save-content', {
+        formData.append('image', imageInput.files[0]);
+
+        let cont = {
+            "content": {
+                "id": 0,
+                "title": title,
+                "description": description,
+                "posterPath": "//",
+                "seriesNum": extraInput,
+                "duration": extraInput,
+                "isFree": extraInput,
+                "isColored": extraInput
+            },
+            "studio": studio,
+            "tags": tagsOnWindow
+        }
+
+        const json = JSON.stringify(cont);
+        const blob = new Blob([json], {
+            type: 'application/json'
+        });
+
+        formData.append("json", blob);
+        userData = JSON.parse(localStorage.getItem('user'));
+        console.log(cont);
+
+        fetch(urlAdd, {
             method: 'POST',
+            headers : {'Authorization': 'Bearer ' + userData.token},
             body: formData
         })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Content saved successfully!');
-                } else {
-                    alert('Failed to save content.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while saving the content.');
-            });
-    } else {
-        alert('Please fill in all the fields.');
+
+        isRedirect = true;
+        window.location.href = 'index.html';
+        //console.log(json);
+
+        // let xhr = new XMLHttpRequest();
+        //
+        // xhr.open('GET', 'http://localhost:27401/api/creator/add/anime');
+        //
+        // xhr.send();
+        //
+        // xhr.onload = function() {
+        //     console.log(xhr.responseText);
+        //     tags = JSON.parse(xhr.responseText);
+        //     console.log(tags);
+        //     listTags = tags;
+        //     addTags(tags)
+        // };
     }
+}
+
+
+function changeType(){
+
 }
 
 const selectType = document.getElementById('type');
@@ -113,26 +156,36 @@ selectType.addEventListener('change', function () {
         label.innerText = 'Количество серий:';
         const input = document.createElement('input');
         input.type = 'number';
+        input.id = 'extra-input';
         extra.appendChild(label);
         extra.appendChild(input);
+        urlAdd = 'http://localhost:27401/api/creator/add/anime';
+        extraField = "seriesNum";
     } else if (option.value === 'movie'){
         const label = document.createElement('label');
         label.innerText = 'Длительность:';
         const input = document.createElement('input');
         input.type = 'number';
+        input.id = 'extra-input';
         extra.appendChild(label);
         extra.appendChild(input);
+        urlAdd = 'http://localhost:27401/api/creator/add/movie';
+        extraField = "duration";
     } else if (option.value === 'tvshow'){
         const label = document.createElement('label');
         label.innerText = 'Количество серий:';
         const input = document.createElement('input');
         input.type = 'number';
+        input.id = 'extra-input';
         extra.appendChild(label);
         extra.appendChild(input);
+        urlAdd = 'http://localhost:27401/api/creator/add/tv_show';
+        extraField = "seriesNum";
     } else if (option.value === 'manga'){
         const label = document.createElement('label');
         label.innerText = 'Цветная?';
         const select = document.createElement('select');
+        select.id = 'extra-input';
         const option1 = document.createElement('option');
         option1.innerText = 'Да';
         const option2 = document.createElement('option');
@@ -141,10 +194,13 @@ selectType.addEventListener('change', function () {
         select.appendChild(option2);
         extra.appendChild(label);
         extra.appendChild(select);
-    } else if (option.value === 'game'){
+        urlAdd = 'http://localhost:27401/api/creator/add/comic';
+        extraField = "isColored";
+    } else if (option.value === 'game') {
         const label = document.createElement('label');
         label.innerText = 'Бесплатная?';
         const select = document.createElement('select');
+        select.id = 'extra-input';
         const option1 = document.createElement('option');
         option1.innerText = 'Да';
         const option2 = document.createElement('option');
@@ -153,6 +209,8 @@ selectType.addEventListener('change', function () {
         select.appendChild(option2);
         extra.appendChild(label);
         extra.appendChild(select);
+        urlAdd = 'http://localhost:27401/api/creator/add/game';
+        extraField = "isFree";
     }
 
 });

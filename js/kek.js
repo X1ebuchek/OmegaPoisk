@@ -1,3 +1,28 @@
+
+var isRedirect = false;
+
+function pop(){
+    if (isRedirect === true){
+        popup("Успешно");
+        isRedirect = false;
+    }
+}
+pop();
+
+
+function popup(text){
+    const popupContainer = document.getElementById('popupContainer');
+    document.getElementById('popupText').innerText = text;
+
+    // Перед показом окна устанавливаем новое положение справа
+    popupContainer.style.right = '20px';
+
+    setTimeout(function () {
+        // Закрываем окно через 5 секунд
+        popupContainer.style.right = '-300px'; // устанавливаем положение за пределы экрана
+    }, 5000);
+}
+
 function searchContent(string) {
     const contentContainer = document.getElementById('content-container');
 

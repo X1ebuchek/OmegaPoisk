@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/toggle.css">
+    <link rel="stylesheet" href="../css/popup.css">
     <title>OmegaPoisk</title>
     <style>
 
@@ -32,6 +33,7 @@
 
     <!-- Add more navigation items here -->
 </div>
+
 <div class="switch-container" style="display: none">
     <label class="switch-label">Пользователь</label>
     <label class="switch">
@@ -51,7 +53,13 @@
     </div>
 </div>
 
+
 <div class="header" style="background-image: url('../img/anime/back2.jpg');">
+    <div class="popup-container" id="popupContainer">
+        <div class="popup" id="popup" style="background-color: #4caf50">
+            <p id="popupText"></p>
+        </div>
+    </div>
     <h1>Найдите свое любимое аниме с помощью OmegaPoisk</h1>
     <p>Множество аниме со всего мира ждут вас!</p>
     <div class="search-container">
