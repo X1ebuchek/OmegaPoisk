@@ -122,21 +122,7 @@ function saveContent() {
 
         isRedirect = true;
         //window.location.href = 'anime.html';
-        //console.log(json);
 
-        // let xhr = new XMLHttpRequest();
-        //
-        // xhr.open('GET', 'http://localhost:27401/api/creator/add/anime');
-        //
-        // xhr.send();
-        //
-        // xhr.onload = function() {
-        //     console.log(xhr.responseText);
-        //     tags = JSON.parse(xhr.responseText);
-        //     console.log(tags);
-        //     listTags = tags;
-        //     addTags(tags)
-        // };
     }
 }
 

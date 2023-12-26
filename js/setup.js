@@ -1,4 +1,31 @@
 var expanded = false;
+var tagsOnWindow = [];
+var updateButton = document.getElementById('update');
+
+var switchElement = document.querySelector('.switch input');
+if (localStorage.getItem('creator') == 'true'){
+    switchElement.checked = true;
+    document.getElementById('animeNavbar').href += '?creator=true';
+    document.getElementById('movieNavbar').href += '?creator=true';
+    document.getElementById('tv_showNavbar').href += '?creator=true';
+    document.getElementById('comicNavbar').href += '?creator=true';
+    document.getElementById('gameNavbar').href += '?creator=true';
+}
+
+switchElement.addEventListener('change', function() {
+    var isChecked = switchElement.checked;
+    if (isChecked) localStorage.setItem('creator', true);
+    else localStorage.setItem('creator', false);
+    var path = window.location.pathname;
+    var page = path.split("/").pop();
+    var name = page.split(".")[0];
+    console.log(path);
+    var redirectUrl = isChecked ? name + '.html?id=' + animeId + '&type=' + type + '&creator=true' : name + '.html?id=' + animeId + '&type=' + type;
+
+
+    window.location.href = redirectUrl;
+});
+
 async function fetchAnimeData(animeId) {
     //const apiUrl = `https://example.com/api/anime/${animeId}`;
 
@@ -53,14 +80,40 @@ async function fetchAnimeData(animeId) {
 
 // Function to update the content of content.html
 function updateContent(data) {
+    if (type == 'anime'){
+        document.querySelector('.anime-extra span').innerText = 'Количество серий:';
+        document.querySelector('.anime-extra h3').innerText = data.content.seriesNum;
+    }
+    if (type == 'movie'){
+        document.querySelector('.anime-extra span').innerText = 'Длительность:';
+        document.querySelector('.anime-extra h3').innerText = data.content.duration;
+    }
+    if (type == 'tv_show'){
+        document.querySelector('.anime-extra span').innerText = 'Количество серий:';
+        document.querySelector('.anime-extra h3').innerText = data.content.seriesNum;
+    }
+    if (type == 'comic'){
+        document.querySelector('.anime-extra span').innerText = 'Цветная?';
+        document.querySelector('.anime-extra h3').innerText = data.content.isColored ? 'Да' : 'Нет';
+    }
+    if (type == 'game'){
+        document.querySelector('.anime-extra span').innerText = 'Бесплатная?';
+        document.querySelector('.anime-extra h3').innerText = data.content.isFree ? 'Да' : 'Нет';
+    }
     // Update anime information
     if (creator){
+       updateButton.style.display = '';
+
+        var switchElement = document.querySelector('.switch input');
+        switchElement.checked = true;
+
         divName = document.getElementById('anime-name-and-desc');
         divName.innerHTML = '';
         nameNode = document.createElement('input');
         nameNode.value = data.content.title;
         divName.appendChild(nameNode);
         descNode = document.createElement('textarea');
+        descNode.style.height = '100px';
         descNode.value = data.content.description;
         divName.appendChild(descNode);
         image = document.querySelector('.anime-cover');
@@ -83,6 +136,9 @@ function updateContent(data) {
         select = document.createElement('select');
         option = document.createElement('option');
         option.id = 'selectName';
+        data.tags.forEach(genre => {
+            option.innerHTML += genre.name + " ";
+        });
         select.appendChild(option);
         overSelect = document.createElement('div');
         overSelect.className = 'overSelect';
@@ -93,6 +149,71 @@ function updateContent(data) {
         tagsContainer.appendChild(selectBox);
         tagsContainer.appendChild(checkboxes);
         divTags.appendChild(tagsContainer);
+
+        divExtra = document.querySelector('.anime-extra');
+        divExtra.innerHTML = '';
+        span1 = document.createElement('span');
+        if (type == 'anime'){
+            span1.innerText = 'Количество серий:';
+            input = document.createElement('input');
+            input.type = 'number';
+            input.id = 'extra-input';
+            input.value = data.content.seriesNum;
+            divExtra.appendChild(span1);
+            divExtra.appendChild(input);
+            urlAdd = 'http://localhost:27401/api/creator/update/anime';
+        }
+        if (type == 'movie'){
+            span1.innerText = 'Длительность:';
+            input = document.createElement('input');
+            input.type = 'number';
+            input.id = 'extra-input';
+            input.value = data.content.duration;
+            divExtra.appendChild(span1);
+            divExtra.appendChild(input);
+            urlAdd = 'http://localhost:27401/api/creator/update/movie';
+        }
+        if (type == 'tv_show'){
+            span1.innerText = 'Количество серий:';
+            input = document.createElement('input');
+            input.type = 'number';
+            input.id = 'extra-input';
+            input.value = data.content.seriesNum;
+            divExtra.appendChild(span1);
+            divExtra.appendChild(input);
+            urlAdd = 'http://localhost:27401/api/creator/update/tv_show';
+        }
+        if (type == 'comic'){
+            span1.innerText = 'Цветная?';
+            select = document.createElement('select');
+            select.id = 'extra-input';
+            option1 = document.createElement('option');
+            option1.innerText = 'Да';
+            option2 = document.createElement('option');
+            option2.innerText = 'Нет';
+            select.value = data.content.isColored ? 'Да' : 'Нет';
+            select.appendChild(option1);
+            select.appendChild(option2);
+            divExtra.appendChild(span1);
+            divExtra.appendChild(select);
+            urlAdd = 'http://localhost:27401/api/creator/update/comic';
+        }
+        if (type == 'game'){
+            span1.innerText = 'Бесплатная?';
+            select = document.createElement('select');
+            select.id = 'extra-input';
+            option1 = document.createElement('option');
+            option1.innerText = 'Да';
+            option2 = document.createElement('option');
+            option2.innerText = 'Нет';
+            select.value = data.content.isFree ? 'Да' : 'Нет';
+            select.appendChild(option1);
+            select.appendChild(option2);
+            divExtra.appendChild(span1);
+            divExtra.appendChild(select);
+            urlAdd = 'http://localhost:27401/api/creator/update/game';
+        }
+
 
         imageChange.addEventListener('change', previewImage);
         image.addEventListener('click', function (){
@@ -113,8 +234,70 @@ function updateContent(data) {
         });
     }
 
+updateButton.addEventListener('click',()=>{
+    saveContent();
+});
 
+    function saveContent() {
 
+        const title = document.querySelector('#anime-name-and-desc input').value;
+        const description = document.querySelector('#anime-name-and-desc textarea').value;
+        const imageInput = document.getElementById('file-upload');
+        //const tags = document.getElementById('tags').value;
+        const studio = document.querySelector('.anime-studio input').value;
+        var extraInput = document.getElementById('extra-input').value;
+
+        if (extraInput === "Да"){
+            extraInput = true;
+        }else if (extraInput === "Нет"){
+            extraInput = false;
+        }
+        console.log(extraInput);
+
+        console.log(title);
+        console.log(description);
+        console.log(imageInput.files.length);
+        console.log(studio);
+        if (title && description && studio) {
+            const formData = new FormData();
+
+            formData.append('image', imageInput.files[0]);
+
+            let cont = {
+                "content": {
+                    "id": animeId,
+                    "title": title,
+                    "description": description,
+                    "posterPath": "//",
+                    "seriesNum": extraInput,
+                    "duration": extraInput,
+                    "isFree": extraInput,
+                    "isColored": extraInput
+                },
+                "studio": studio,
+                "tags": tagsOnWindow
+            }
+
+            const json = JSON.stringify(cont);
+            const blob = new Blob([json], {
+                type: 'application/json'
+            });
+
+            formData.append("json", blob);
+            userData = JSON.parse(localStorage.getItem('user'));
+            console.log(cont);
+
+            fetch(urlAdd, {
+                method: 'POST',
+                headers : {'Authorization': 'Bearer ' + userData.token},
+                body: formData
+            })
+
+            isRedirect = true;
+            //window.location.href = 'anime.html';
+
+        }
+    }
 
     // Update reviews (assuming 'reviews' is an array in your data)
     //const reviewList = document.querySelector('.review-list');
@@ -209,6 +392,7 @@ function previewImage() {
 // Get the anime ID from the query parameter (you may need to adjust this based on your URL structure)
 const urlParams = new URLSearchParams(window.location.search);
 const animeId = urlParams.get('id');
+const type = urlParams.get('type');
 const creator = urlParams.get('creator');
 
 // Fetch and update anime data

@@ -8,6 +8,7 @@
     background: #141414;
   }
 
+
   .navbar {
     background-color: #1c1c1e;
     /*background-color: #262626; /* Adjust to match your header background color */
@@ -18,10 +19,10 @@ button {
     padding: 10px;
     font-size: 16px;
     cursor: pointer;
-    background-color: #aa702a;
+    background-color: #ffa332;
     color: #262626;
     border: none;
-    border-radius: 5px;
+    border-radius: 7px;
     transition: background-color 0.3s ease;
 }
 
@@ -245,13 +246,13 @@ button {
   }
 
   /* Стили для оценки, тэгов и студии */
-  .anime-rating, .anime-tags, .anime-studio {
+  .anime-rating, .anime-tags, .anime-studio, .anime-extra {
       font-weight: bold;
       color: white;
       padding:5px;
   }
 
-  .anime-rating span, .anime-tags span, .anime-studio span {
+  .anime-rating span, .anime-tags span, .anime-studio span, .anime-extra span {
       color: #ffcc00;
       margin-right: 5px;
   }
@@ -524,4 +525,9 @@ button {
 
 #checkboxes input:focus + label {
     outline: 2px solid #4caf50;
+}
+
+#user-photo-img {
+    width: 300px;
+    height: 400px;
 }

@@ -101,6 +101,8 @@ function createCard(item) {
     const image = document.createElement('img');
     image.src = item.content.posterPath;
     image.alt = 'Anime Title';
+    image.style.height = '300px';
+    image.style.width = '220px';
 
     // Add content to the card (adjust as per your JSON structure)
     const title = document.createElement('div');
@@ -112,7 +114,8 @@ function createCard(item) {
 
     const genres = document.createElement('div');
     genres.className = 'anime-card-genres';
-    item.tags.forEach(genre => {
+
+    item.tags.slice(0, item.tags.length>3 ? 3 : item.tags.length).forEach(genre => {
         const span = document.createElement('span');
         span.textContent = genre.name;
         genres.appendChild(span);
@@ -165,10 +168,13 @@ const switchElement = document.querySelector('.switch input');
 
 switchElement.addEventListener('change', function() {
     var isChecked = switchElement.checked;
+    if (isChecked) localStorage.setItem('creator', true);
+    else localStorage.setItem('creator', false);
     var path = window.location.pathname;
     var page = path.split("/").pop();
     var name = page.split(".")[0];
     var redirectUrl = isChecked ? name + '.html?creator=true' : name + '.html';
+
 
     window.location.href = redirectUrl;
 });
@@ -178,6 +184,14 @@ const string = urlParams.get('search');
 const creator = urlParams.get('creator');
 
 // Fetch and update anime data
+
+if (localStorage.getItem('creator') == 'true'){
+    document.getElementById('animeNavbar').href += '?creator=true';
+    document.getElementById('movieNavbar').href += '?creator=true';
+    document.getElementById('tv_showNavbar').href += '?creator=true';
+    document.getElementById('comicNavbar').href += '?creator=true';
+    document.getElementById('gameNavbar').href += '?creator=true';
+}
 if (string) {
     document.getElementById('anime-container-title').innerText = 'Результаты поиска:'
     searchContent(string);

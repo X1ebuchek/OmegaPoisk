@@ -41,3 +41,15 @@
     padding-left: 20px;
     color: white;
 }
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #141414;
+    background-color: #141414;
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+    resize: none;
+}

@@ -3,20 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/toggle.css">
+    <link rel="stylesheet" href="../css/popup.css">
     <link rel="stylesheet" href="../css/stars.css">
-    <title>Информация об аниме</title>
+    <title>OmegaPoisk</title>
+    <style>
+
+    </style>
 </head>
 <body>
 <div class="navbar">
     <a class="name">OmegaPoisk</a>
-    <a href="anime.html">Аниме</a>
-    <a href="movie.html">Фильмы</a>
-    <a href="tv_show.html">Сериалы</a>
-    <a href="comic.html">Манга</a>
-    <a href="game.html">Игры</a>
-    <a class="navbar-button" href="login.html">Вход</a>
+    <a id="animeNavbar" href="anime.html">Аниме</a>
+    <a id="movieNavbar" href="movie.html">Фильмы</a>
+    <a id="tv_showNavbar" href="tv_show.html">Сериалы</a>
+    <a id="comicNavbar" href="comic.html">Манга</a>
+    <a id="gameNavbar" href="game.html">Игры</a>
+    <a class="navbar-button" id="login-button" href="login.html" style="display: none">Вход</a>
     <!-- Add more navigation items here -->
+</div>
+
+<div class="switch-container" style="display: none">
+    <label class="switch-label">Пользователь</label>
+    <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+    </label>
+    <label class="switch-label">Создатель</label>
+</div>
+<div class="dropdown">
+    <a class="navbar-button1" id="account-dropdown">
+        <i class="fas fa-user"></i> <!-- User icon -->
+    </a>
+    <div class="dropdown-content">
+        <a href="account.html" id="account-button" style="display: none">Личный кабинет</a>
+        <a href="addContent.html" id="add-content-button" style="display: none">Добавить контент</a>
+        <a href="anime.html" onclick="setFalseAuthenticated()" id="close-button" style="display: none">Выход</a>
+    </div>
 </div>
 
 <div class="content">
@@ -38,7 +63,11 @@
                 <div class="anime-studio">
                     <span>Студия:</span> <h3></h3>
                 </div>
+                <div class="anime-extra">
+                    <span>Количество серий:</span> <h3></h3>
+                </div>
             </div>
+            <button id="update" style="display: none">Сохранить</button>
         </div>
     </div>
 
@@ -146,5 +175,6 @@
 <!--</div>-->
 <script src="../js/setup.js"></script>
 <script src="../js/stars.js"></script>
+<script src="../js/navbar.js"></script>
 </body>
 </html>

@@ -16,6 +16,7 @@ function updateAuthenticationStatus() {
         dropdown.style.display = '';
         var role = JSON.parse(localStorage.getItem('user')).role;
         if (role === 'CREATOR' || role === 'ADMIN'){
+            //localStorage.setItem('creator',false);
             toggle.style.display = '';
         }
 
