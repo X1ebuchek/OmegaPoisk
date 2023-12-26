@@ -463,7 +463,7 @@ function drawReviews(data){
         deleteButton = document.createElement('div');
         deleteButton.className = 'delete-button1';
         deleteButton.style.right = '0';
-        if (hidden) deleteButton.hidden = 'hidden';
+        if (review.review.userId != JSON.parse(localStorage.getItem('user')).id && JSON.parse(localStorage.getItem('user')).role != "ADMIN") deleteButton.hidden = 'hidden';
 
         aX = document.createElement('a');
         aX.id = 'delete-button1';
@@ -479,8 +479,25 @@ function drawReviews(data){
         reviewBlock.appendChild(reviewUser);
         reviewBlock.appendChild(reviewText);
         reviewList.appendChild(reviewBlock)
+
+        aX.addEventListener('click', ()=>{
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('POST', 'http://localhost:27401/api/review/del/' + review.review.id);
+            xhr.setRequestHeader("Authorization", "Bearer " + JSON.parse(localStorage.getItem('user')).token);
+            xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+            xhr.send();
+
+            xhr.onload = function() {
+                console.log(xhr.responseText);
+                location.reload();
+            };
+        });
     });
 }
+
+
+
 
 
 // Get the anime ID from the query parameter (you may need to adjust this based on your URL structure)
