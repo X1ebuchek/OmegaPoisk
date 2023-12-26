@@ -1,6 +1,11 @@
+getTags();
+getReviews();
+
 var expanded = false;
-var tagsOnWindow = [];
+var tagsOnWindow = new Set();
+var allTags = new Set();
 var updateButton = document.getElementById('update');
+var hidden = false;
 
 var switchElement = document.querySelector('.switch input');
 if (localStorage.getItem('creator') == 'true'){
@@ -68,7 +73,7 @@ async function fetchAnimeData(animeId) {
                 studioNode.value = data.name;
                 divStudio.appendChild(span);
                 divStudio.appendChild(studioNode);
-                getTags();
+                //getTags();
             }else {
                 document.querySelector('.anime-studio h3').textContent = data.name;
             }
@@ -136,9 +141,7 @@ function updateContent(data) {
         select = document.createElement('select');
         option = document.createElement('option');
         option.id = 'selectName';
-        data.tags.forEach(genre => {
-            option.innerHTML += genre.name + " ";
-        });
+
         select.appendChild(option);
         overSelect = document.createElement('div');
         overSelect.className = 'overSelect';
@@ -149,6 +152,19 @@ function updateContent(data) {
         tagsContainer.appendChild(selectBox);
         tagsContainer.appendChild(checkboxes);
         divTags.appendChild(tagsContainer);
+
+        addTags(allTags);
+        data.tags.forEach(genre => {
+            console.log(genre);
+            console.log(allTags);
+            for (let tag of allTags) {
+                if (tag.id == genre.id) {
+                    document.getElementById('selectName').innerHTML += genre.name + " ";
+                    tagsOnWindow.add(tag);
+                    break;
+                }
+            }
+        });
 
         divExtra = document.querySelector('.anime-extra');
         divExtra.innerHTML = '';
@@ -299,7 +315,7 @@ updateButton.addEventListener('click',()=>{
             })
 
             isRedirect = true;
-            //window.location.href = 'anime.html';
+            location.reload();
 
         }
     }
@@ -314,9 +330,8 @@ updateButton.addEventListener('click',()=>{
     //     reviewList.appendChild(li);
     // });
 }
-
 function getTags(){
-    const checkboxes = document.getElementById('checkboxes');
+    //const checkboxes = document.getElementById('checkboxes');
     var tags = [];
     let xhr = new XMLHttpRequest();
 
@@ -327,9 +342,11 @@ function getTags(){
     xhr.onload = function() {
         console.log(xhr.responseText);
         tags = JSON.parse(xhr.responseText);
+        allTags = tags;
+        console.log(allTags);
         console.log(tags);
         //listTags = tags;
-        addTags(tags)
+        //addTags(tags)
     };
 
 }
@@ -346,12 +363,13 @@ function addTags(tags){
 
         tag.addEventListener('change', function () {
             if (this.checked) {
-                tagsOnWindow.push(tags[tagKey]);
+                tagsOnWindow.add(tags[tagKey]);
             } else {
-                var index = tagsOnWindow.indexOf(tags[tagKey]);
-                if (index !== -1) {
-                    tagsOnWindow.splice(index, 1);
-                }
+                // var index = tagsOnWindow.indexOf(tags[tagKey]);
+                // if (index !== -1) {
+                //     tagsOnWindow.splice(index, 1);
+                // }
+                tagsOnWindow.delete(tags[tagKey]);
             }
             addTextToOption();
         });
@@ -361,8 +379,8 @@ function addTags(tags){
 function addTextToOption(){
     const selectName = document.getElementById('selectName');
     selectName.innerHTML = '';
-    for (const tag1 in tagsOnWindow) {
-        selectName.innerHTML += tagsOnWindow[tag1].name + " ";
+    for (const tag1 of tagsOnWindow) {
+        selectName.innerHTML += tag1.name + " ";
     }
 }
 
@@ -393,6 +411,76 @@ function previewImage() {
         reader.readAsDataURL(file);
     }
 }
+
+var reviewButton = document.getElementById('reviewButton');
+reviewButton.addEventListener('click',()=>{
+
+    reviewText = document.getElementById('review-text');
+    userId = JSON.parse(localStorage.getItem('user')).id;
+    console.log(userId);
+    console.log(reviewText.value);
+    let review = {
+        "review": {
+            "id": animeId,
+            "txt": reviewText.value,
+            "userId": userId,
+            "contentId": animeId,
+        },
+        "login": "login"
+    }
+    let xhr = new XMLHttpRequest();
+
+    xhr.open('POST', 'http://localhost:27401/api/review/add');
+    xhr.setRequestHeader("Authorization", "Bearer " + JSON.parse(localStorage.getItem('user')).token);
+    json = JSON.stringify(review);
+    console.log(json);
+    xhr.send(json);
+
+    xhr.onload = function() {
+        console.log(xhr.responseText);
+        //location.reload();
+    };
+});
+
+function getReviews(){
+    let xhr = new XMLHttpRequest();
+
+    xhr.open('GET', 'http://localhost:27401/api/review/all');
+    xhr.send();
+
+    xhr.onload = function() {
+        console.log(xhr.responseText);
+        drawReviews(JSON.parse(xhr.responseText));
+    };
+}
+
+function drawReviews(data){
+    data.forEach(review =>{
+        reviewList = document.querySelector('.review-list');
+        reviewBlock = document.createElement('div');
+        reviewBlock.className = 'review-block';
+        deleteButton = document.createElement('div');
+        deleteButton.className = 'delete-button1';
+        deleteButton.style.right = '0';
+        if (hidden) deleteButton.hidden = 'hidden';
+
+        aX = document.createElement('a');
+        aX.id = 'delete-button1';
+        aX.innerText = '✖';
+        deleteButton.appendChild(aX)
+        reviewUser = document.createElement('p');
+        reviewUser.className = 'review-user';
+        reviewUser.innerText = review.login;
+        reviewText = document.createElement('p');
+        reviewText.className = 'review-text';
+        reviewText.innerText = review.review.txt;
+        reviewBlock.appendChild(deleteButton);
+        reviewBlock.appendChild(reviewUser);
+        reviewBlock.appendChild(reviewText);
+        reviewList.appendChild(reviewBlock)
+    });
+}
+
 
 // Get the anime ID from the query parameter (you may need to adjust this based on your URL structure)
 const urlParams = new URLSearchParams(window.location.search);

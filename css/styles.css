@@ -368,7 +368,7 @@ button {
     background-color: #1c1c1e;
     border-radius: 10px;
     border-color: red;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
     padding: 10px;
     margin-bottom: 15px;
 }
@@ -473,6 +473,28 @@ button {
 }
 
 .delete-button a:hover {
+    text-decoration: underline;
+}
+
+.delete-button1 {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 0;
+    margin-right: 70px;
+    font-size: 24px;
+    color: #f60f0f;
+    z-index: 1;
+    pointer-events: auto;
+}
+
+.delete-button1 a {
+    text-decoration: none;
+    color: #ff1111;
+    pointer-events: auto;
+}
+
+.delete-button1 a:hover {
     text-decoration: underline;
 }
 
