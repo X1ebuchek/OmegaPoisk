@@ -421,10 +421,10 @@ reviewButton.addEventListener('click',()=>{
     console.log(reviewText.value);
     let review = {
         "review": {
-            "id": animeId,
+            "id": Number(animeId),
             "txt": reviewText.value,
-            "userId": userId,
-            "contentId": animeId,
+            "userId": Number(userId),
+            "contentId": Number(animeId),
         },
         "login": "login"
     }
@@ -432,13 +432,14 @@ reviewButton.addEventListener('click',()=>{
 
     xhr.open('POST', 'http://localhost:27401/api/review/add');
     xhr.setRequestHeader("Authorization", "Bearer " + JSON.parse(localStorage.getItem('user')).token);
+    xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
     json = JSON.stringify(review);
     console.log(json);
     xhr.send(json);
 
     xhr.onload = function() {
         console.log(xhr.responseText);
-        //location.reload();
+        location.reload();
     };
 });
 
