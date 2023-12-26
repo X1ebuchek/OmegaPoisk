@@ -242,8 +242,8 @@ updateButton.addEventListener('click',()=>{
 
         const title = document.querySelector('#anime-name-and-desc input').value;
         const description = document.querySelector('#anime-name-and-desc textarea').value;
-        const imageInput = document.getElementById('file-upload');
-        //const tags = document.getElementById('tags').value;
+        imageInput = document.getElementById('file-upload');
+
         const studio = document.querySelector('.anime-studio input').value;
         var extraInput = document.getElementById('extra-input').value;
 
@@ -252,6 +252,7 @@ updateButton.addEventListener('click',()=>{
         }else if (extraInput === "Нет"){
             extraInput = false;
         }
+
         console.log(extraInput);
 
         console.log(title);
@@ -260,8 +261,12 @@ updateButton.addEventListener('click',()=>{
         console.log(studio);
         if (title && description && studio) {
             const formData = new FormData();
+            if (imageInput.files.length == 0){
+                let file = new File([],'');
+                formData.append('image', file);
+            }else formData.append('image', imageInput.files[0]);
 
-            formData.append('image', imageInput.files[0]);
+            console.log(formData.get('image'));
 
             let cont = {
                 "content": {

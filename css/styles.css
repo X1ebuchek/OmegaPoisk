@@ -364,10 +364,24 @@ button {
     padding: 0;
 }
 
-.review-list li {
-    font-size: 14px;
-    color: white;
+.review-block {
+    background-color: #1c1c1e;
+    border-radius: 10px;
+    border-color: red;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.review-user {
+    font-weight: bold;
+    color: #ffcc00;
     margin-bottom: 5px;
+}
+
+.review-text {
+    color: white;
+    margin-bottom: 0;
 }
 
 /* Остальные стили остаются без изменений */
