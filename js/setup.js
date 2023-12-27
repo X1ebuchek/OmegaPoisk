@@ -259,23 +259,30 @@ function updateContent(data) {
             document.querySelector('.anime-tags h3').textContent += genre.name + " ";
         });
 
-        lists = document.querySelector('.list-buttons');
-        listButtons = document.createElement('div');
-        listButtons.className = 'list-block';
-        listWatched = document.createElement('button');
-        listWatched.id = 'watchedButton';
-        listWatched.innerText = "Просмотрено";
-        listWatching = document.createElement('button');
-        listWatching.id = 'watchingButton';
-        listWatching.innerText = "Смотрю";
-        listWillWatch = document.createElement('button');
-        listWillWatch.id = 'willWatchButton';
-        listWillWatch.innerText = "Буду смотреть";
-        br = document.createElement('br');
-        listButtons.appendChild(listWatched);
-        listButtons.appendChild(listWatching);
-        listButtons.appendChild(listWillWatch);
-        lists.appendChild(listButtons);
+        // lists = document.querySelector('.list-buttons');
+        // listButtons = document.createElement('div');
+        // listButtons.className = 'list-block';
+        // listWatched = document.createElement('button');
+        // listWatched.id = 'watchedButton';
+        // listWatched.innerText = "Просмотрено";
+        // listWatching = document.createElement('button');
+        // listWatching.id = 'watchingButton';
+        // listWatching.innerText = "Смотрю";
+        // listWillWatch = document.createElement('button');
+        // listWillWatch.id = 'willWatchButton';
+        // listWillWatch.innerText = "Буду смотреть";
+        // br = document.createElement('br');
+        // listButtons.appendChild(listWatched);
+        // listButtons.appendChild(listWatching);
+        // listButtons.appendChild(listWillWatch);
+        // lists.appendChild(listButtons);
+
+        listWatched = document.getElementById('watchedButton');
+        listWatching = document.getElementById('watchingButton');
+        listWillWatch = document.getElementById('willWatchButton');
+        listWatched.style.display = '';
+        listWatching.style.display = '';
+        listWillWatch.style.display = '';
 
         listWatched.addEventListener('click',()=>{
             sendList(1);
@@ -581,6 +588,10 @@ function colorButtons(){
     xhr.onload = function() {
         console.log(xhr.responseText);
         data = JSON.parse(xhr.responseText);
+        while (document.getElementById('watchedButton') == null || document.getElementById('watchingButton') == null || document.getElementById('willWatchButton') == null){
+            console.log('waiting');
+            continue;
+        }
         if (data.listId == 1) document.getElementById('watchedButton').style.backgroundColor = '#ffa332';
         if (data.listId == 2) document.getElementById('watchingButton').style.backgroundColor = '#ffa332';
         if (data.listId == 3) document.getElementById('willWatchButton').style.backgroundColor = '#ffa332';
