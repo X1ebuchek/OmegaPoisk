@@ -1,11 +1,13 @@
 getTags();
-getReviews();
+
+
 
 var expanded = false;
 var tagsOnWindow = new Set();
 var allTags = new Set();
 var updateButton = document.getElementById('update');
 var hidden = false;
+var urlAdd1 = 'http://localhost:27401/api/creator/update/anime';
 
 var switchElement = document.querySelector('.switch input');
 if (localStorage.getItem('creator') == 'true'){
@@ -31,7 +33,7 @@ switchElement.addEventListener('change', function() {
     window.location.href = redirectUrl;
 });
 
-async function fetchAnimeData(animeId) {
+function fetchAnimeData(animeId) {
     //const apiUrl = `https://example.com/api/anime/${animeId}`;
 
     // try {
@@ -107,6 +109,7 @@ function updateContent(data) {
     }
     // Update anime information
     if (creator){
+        console.log("Этап 1");
        updateButton.style.display = '';
 
         var switchElement = document.querySelector('.switch input');
@@ -152,19 +155,26 @@ function updateContent(data) {
         tagsContainer.appendChild(selectBox);
         tagsContainer.appendChild(checkboxes);
         divTags.appendChild(tagsContainer);
+        console.log("Этап 2");
+        console.log(allTags);
 
         addTags(allTags);
-        data.tags.forEach(genre => {
-            console.log(genre);
-            console.log(allTags);
-            for (let tag of allTags) {
-                if (tag.id == genre.id) {
-                    document.getElementById('selectName').innerHTML += genre.name + " ";
-                    tagsOnWindow.add(tag);
-                    break;
-                }
-            }
-        });
+        console.log("Этап 3");
+        sleep(500)
+            .then(()=>{
+                data.tags.forEach(genre => {
+                    console.log(genre);
+                    console.log(allTags);
+                    for (let tag of allTags) {
+                        if (tag.id == genre.id) {
+                            document.getElementById('selectName').innerHTML += genre.name + " ";
+                            tagsOnWindow.add(tag);
+                            break;
+                        }
+                    }
+                });
+            });
+
 
         divExtra = document.querySelector('.anime-extra');
         divExtra.innerHTML = '';
@@ -177,7 +187,7 @@ function updateContent(data) {
             input.value = data.content.seriesNum;
             divExtra.appendChild(span1);
             divExtra.appendChild(input);
-            urlAdd = 'http://localhost:27401/api/creator/update/anime';
+            urlAdd1 = 'http://localhost:27401/api/creator/update/anime';
         }
         if (type == 'movie'){
             span1.innerText = 'Длительность:';
@@ -187,7 +197,7 @@ function updateContent(data) {
             input.value = data.content.duration;
             divExtra.appendChild(span1);
             divExtra.appendChild(input);
-            urlAdd = 'http://localhost:27401/api/creator/update/movie';
+            urlAdd1 = 'http://localhost:27401/api/creator/update/movie';
         }
         if (type == 'tv_show'){
             span1.innerText = 'Количество серий:';
@@ -197,7 +207,7 @@ function updateContent(data) {
             input.value = data.content.seriesNum;
             divExtra.appendChild(span1);
             divExtra.appendChild(input);
-            urlAdd = 'http://localhost:27401/api/creator/update/tv_show';
+            urlAdd1 = 'http://localhost:27401/api/creator/update/tv_show';
         }
         if (type == 'comic'){
             span1.innerText = 'Цветная?';
@@ -212,7 +222,7 @@ function updateContent(data) {
             select.appendChild(option2);
             divExtra.appendChild(span1);
             divExtra.appendChild(select);
-            urlAdd = 'http://localhost:27401/api/creator/update/comic';
+            urlAdd1 = 'http://localhost:27401/api/creator/update/comic';
         }
         if (type == 'game'){
             span1.innerText = 'Бесплатная?';
@@ -227,7 +237,7 @@ function updateContent(data) {
             select.appendChild(option2);
             divExtra.appendChild(span1);
             divExtra.appendChild(select);
-            urlAdd = 'http://localhost:27401/api/creator/update/game';
+            urlAdd1 = 'http://localhost:27401/api/creator/update/game';
         }
 
 
@@ -248,77 +258,64 @@ function updateContent(data) {
         data.tags.forEach(genre => {
             document.querySelector('.anime-tags h3').textContent += genre.name + " ";
         });
+
+        lists = document.querySelector('.list-buttons');
+        listButtons = document.createElement('div');
+        listButtons.className = 'list-block';
+        listWatched = document.createElement('button');
+        listWatched.id = 'watchedButton';
+        listWatched.innerText = "Просмотрено";
+        listWatching = document.createElement('button');
+        listWatching.id = 'watchingButton';
+        listWatching.innerText = "Смотрю";
+        listWillWatch = document.createElement('button');
+        listWillWatch.id = 'willWatchButton';
+        listWillWatch.innerText = "Буду смотреть";
+        br = document.createElement('br');
+        listButtons.appendChild(listWatched);
+        listButtons.appendChild(listWatching);
+        listButtons.appendChild(listWillWatch);
+        lists.appendChild(listButtons);
+
+        listWatched.addEventListener('click',()=>{
+            sendList(1);
+        });
+        listWatching.addEventListener('click',()=>{
+            sendList(2);
+        });
+        listWillWatch.addEventListener('click',()=>{
+            sendList(3);
+        });
+
+        function sendList(listId){
+            let cont = {
+                "userId": JSON.parse(localStorage.getItem('user')).id,
+                "listId": listId,
+                "contentId": animeId,
+                "contentTitle": data.content.title,
+                "contentType": type
+            }
+
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('POST', 'http://localhost:27401/api/list/add');
+            xhr.setRequestHeader("Authorization", "Bearer " + JSON.parse(localStorage.getItem('user')).token);
+            xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+            xhr.send(JSON.stringify(cont));
+
+            xhr.onload = function() {
+                console.log(xhr.responseText);
+                location.reload();
+            };
+        }
     }
 
 updateButton.addEventListener('click',()=>{
     saveContent();
 });
 
-    function saveContent() {
 
-        const title = document.querySelector('#anime-name-and-desc input').value;
-        const description = document.querySelector('#anime-name-and-desc textarea').value;
-        imageInput = document.getElementById('file-upload');
 
-        const studio = document.querySelector('.anime-studio input').value;
-        var extraInput = document.getElementById('extra-input').value;
-
-        if (extraInput === "Да"){
-            extraInput = true;
-        }else if (extraInput === "Нет"){
-            extraInput = false;
-        }
-
-        console.log(extraInput);
-
-        console.log(title);
-        console.log(description);
-        console.log(imageInput.files.length);
-        console.log(studio);
-        if (title && description && studio) {
-            const formData = new FormData();
-            if (imageInput.files.length == 0){
-                let file = new File([],'');
-                formData.append('image', file);
-            }else formData.append('image', imageInput.files[0]);
-
-            console.log(formData.get('image'));
-
-            let cont = {
-                "content": {
-                    "id": animeId,
-                    "title": title,
-                    "description": description,
-                    "posterPath": "//",
-                    "seriesNum": extraInput,
-                    "duration": extraInput,
-                    "isFree": extraInput,
-                    "isColored": extraInput
-                },
-                "studio": studio,
-                "tags": tagsOnWindow
-            }
-
-            const json = JSON.stringify(cont);
-            const blob = new Blob([json], {
-                type: 'application/json'
-            });
-
-            formData.append("json", blob);
-            userData = JSON.parse(localStorage.getItem('user'));
-            console.log(cont);
-
-            fetch(urlAdd, {
-                method: 'POST',
-                headers : {'Authorization': 'Bearer ' + userData.token},
-                body: formData
-            })
-
-            isRedirect = true;
-            location.reload();
-
-        }
-    }
 
     // Update reviews (assuming 'reviews' is an array in your data)
     //const reviewList = document.querySelector('.review-list');
@@ -329,6 +326,81 @@ updateButton.addEventListener('click',()=>{
     //     li.textContent = review;
     //     reviewList.appendChild(li);
     // });
+}
+
+function saveContent() {
+
+    const title = document.querySelector('#anime-name-and-desc input').value;
+    const description = document.querySelector('#anime-name-and-desc textarea').value;
+    imageInput = document.getElementById('file-upload');
+
+    const studio = document.querySelector('.anime-studio input').value;
+    var extraInput = document.getElementById('extra-input').value;
+
+    if (extraInput === "Да"){
+        extraInput = true;
+    }else if (extraInput === "Нет"){
+        extraInput = false;
+    }
+
+    console.log(extraInput);
+
+    console.log(title);
+    console.log(description);
+    console.log(imageInput.files.length);
+    console.log(studio);
+    if (title && description && studio) {
+        const formData = new FormData();
+        if (imageInput.files.length == 0){
+            let file = new File([],'');
+            formData.append('image', file);
+        }else formData.append('image', imageInput.files[0]);
+
+        console.log(formData.get('image'));
+
+        let cont = {
+            "content": {
+                "id": animeId,
+                "title": title,
+                "description": description,
+                "posterPath": "//",
+                "seriesNum": extraInput,
+                "duration": extraInput,
+                "isFree": extraInput,
+                "isColored": extraInput
+            },
+            "studio": studio,
+            "tags": Array.from(tagsOnWindow)
+        }
+
+        const json = JSON.stringify(cont);
+        const blob = new Blob([json], {
+            type: 'application/json'
+        });
+
+        formData.append("json", blob);
+        userData = JSON.parse(localStorage.getItem('user'));
+        console.log(cont);
+
+        console.log("urlAdd = " + urlAdd1);
+
+        fetch(urlAdd1, {
+            method: 'POST',
+            headers : {'Authorization': 'Bearer ' + userData.token},
+            body: formData
+        })
+
+        isRedirect = true;
+        sleep(300)
+            .then(()=>{
+                location.reload();
+            });
+
+
+    }
+}
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 function getTags(){
     //const checkboxes = document.getElementById('checkboxes');
@@ -352,6 +424,7 @@ function getTags(){
 }
 
 function addTags(tags){
+    console.log("Этап 2.1");
     for (const tagKey in tags) {
         const label = document.createElement('label');
         label.innerText = tags[tagKey].name;
@@ -360,6 +433,7 @@ function addTags(tags){
         tag.value = tags[tagKey].name;
         label.appendChild(tag);
         checkboxes.appendChild(label);
+        console.log("label = " + label);
 
         tag.addEventListener('change', function () {
             if (this.checked) {
@@ -446,7 +520,7 @@ reviewButton.addEventListener('click',()=>{
 function getReviews(){
     let xhr = new XMLHttpRequest();
 
-    xhr.open('GET', 'http://localhost:27401/api/review/all');
+    xhr.open('GET', 'http://localhost:27401/api/review/all/' + animeId);
     xhr.send();
 
     xhr.onload = function() {
@@ -496,8 +570,22 @@ function drawReviews(data){
     });
 }
 
+function colorButtons(){
+    let xhr = new XMLHttpRequest();
 
+    xhr.open('GET', 'http://localhost:27401/api/list/' + animeId);
+    xhr.setRequestHeader("Authorization", "Bearer " + JSON.parse(localStorage.getItem('user')).token);
+    xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+    xhr.send();
 
+    xhr.onload = function() {
+        console.log(xhr.responseText);
+        data = JSON.parse(xhr.responseText);
+        if (data.listId == 1) document.getElementById('watchedButton').style.backgroundColor = '#ffa332';
+        if (data.listId == 2) document.getElementById('watchingButton').style.backgroundColor = '#ffa332';
+        if (data.listId == 3) document.getElementById('willWatchButton').style.backgroundColor = '#ffa332';
+    };
+}
 
 
 // Get the anime ID from the query parameter (you may need to adjust this based on your URL structure)
@@ -507,6 +595,11 @@ const type = urlParams.get('type');
 const creator = urlParams.get('creator');
 
 // Fetch and update anime data
+if (!creator) colorButtons();
 if (animeId) {
-    fetchAnimeData(animeId);
+    getReviews();
+    sleep(200)
+        .then(()=>{
+            fetchAnimeData(animeId);
+        });
 }

@@ -36,8 +36,12 @@ function searchContent(string) {
     var page = path.split("/").pop();
     var name = page.split(".")[0];
 
-    xhr.open('GET', 'http://localhost:27401/api/read/' + name);
+    if (search) url = 'http://localhost:27401/api/search/' + name + "/" + search;
+    else url = 'http://localhost:27401/api/read/' + name;
 
+    xhr.open('GET', url);
+    xhr.setRequestHeader("Authorization", "Bearer " + JSON.parse(localStorage.getItem('user')).token);
+    xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
     xhr.send();
 
     xhr.onload = function() {
@@ -48,7 +52,7 @@ function searchContent(string) {
 
 }
 
-function searchContentInCreatorMode(string) {
+function searchContentInCreatorMode() {
     hidden = false;
     const contentContainer = document.getElementById('content-container');
 
@@ -59,9 +63,12 @@ function searchContentInCreatorMode(string) {
     var path = window.location.pathname;
     var page = path.split("/").pop();
     var name = page.split(".")[0];
-    xhr.open('GET', 'http://localhost:27401/api/creator/read/' + name);
+    if (search) url = 'http://localhost:27401/api/search/' + name + "/creator/" + search;
+    else url = 'http://localhost:27401/api/creator/read/' + name;
+    xhr.open('GET', url);
     console.log(JSON.parse(localStorage.getItem('user')).token);
     xhr.setRequestHeader("Authorization", "Bearer " + JSON.parse(localStorage.getItem('user')).token);
+    xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
     xhr.send();
 
     xhr.onload = function() {
@@ -179,8 +186,18 @@ switchElement.addEventListener('change', function() {
     window.location.href = redirectUrl;
 });
 
+const searchButton = document.getElementById('searchButton');
+
+searchButton.addEventListener('click',()=>{
+    var path = window.location.pathname;
+    var page = path.split("/").pop();
+    var name = page.split(".")[0];
+    if (creator) location.href = name + '.html?search=' + document.getElementsByClassName('search-box').item(0).value + "&creator=true";
+    else location.href = name + '.html?search=' + document.getElementsByClassName('search-box').item(0).value;
+});
+
 const urlParams = new URLSearchParams(window.location.search);
-const string = urlParams.get('search');
+const search = urlParams.get('search');
 const creator = urlParams.get('creator');
 
 // Fetch and update anime data
@@ -192,13 +209,14 @@ if (localStorage.getItem('creator') == 'true'){
     document.getElementById('comicNavbar').href += '?creator=true';
     document.getElementById('gameNavbar').href += '?creator=true';
 }
-if (string) {
-    document.getElementById('anime-container-title').innerText = 'Результаты поиска:'
-    searchContent(string);
-}else if (creator){
+if (creator){
     switchElement.checked = true;
     searchContentInCreatorMode();
+}else if (search){
+    document.getElementById('anime-container-title').innerText = 'Результаты поиска:';
+    searchContent(search);
 }else searchContent();
+
 
 
 

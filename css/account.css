@@ -1,4 +1,3 @@
-/* Include your styles specific to the personal account page here */
 body {
     background: #141414;
 }
@@ -24,7 +23,7 @@ body {
 
 .user-info {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: 20px;
     position: relative;
     cursor: pointer;
@@ -35,6 +34,7 @@ body {
     margin-right: 20px;
     width: 200px; /* Set a fixed width for the image */
     height: 200px; /* Set a fixed height for the image */
+    overflow: hidden;
 }
 
 .upload-icon {
@@ -64,14 +64,11 @@ body {
 .user-details {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Align items to the left */
-    justify-content: center; /* Center vertically */
-    flex: 1; /* Expand to fill available space */
+    /*padding-top: 70px;*/
 }
 
 .user-details p {
     margin: 5px 0;
-    text-align: right; /* Align text to the right */
 }
 
 .content-lists {
@@ -118,4 +115,33 @@ body {
     text-align: center;
     padding: 20px;
     margin-top: 20px;
+}
+
+
+.list-card {
+    padding-top: 10px;
+}
+
+.delete-button1 {
+    padding-top: 0px;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    right: 0;
+    margin-left: 1350px;
+
+    font-size: 24px;
+    color: #f60f0f;
+    z-index: 1;
+    pointer-events: auto;
+}
+
+.delete-button1 a {
+    text-decoration: none;
+    color: #ff1111;
+    pointer-events: auto;
+}
+
+.delete-button1 a:hover {
+    text-decoration: underline;
 }

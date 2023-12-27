@@ -16,6 +16,7 @@
   }
 
 button {
+    margin-top: 5px;
     padding: 10px;
     font-size: 16px;
     cursor: pointer;
@@ -566,4 +567,20 @@ button {
 #user-photo-img {
     width: 300px;
     height: 400px;
+}
+.list-block {
+    text-align: right;
+}
+
+.list-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.list-buttons button {
+    background-color: #ccc;
+    width: 150px;
+    display: block;
+    margin: 6px 10px;
 }
