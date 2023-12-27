@@ -36,7 +36,7 @@ function searchContent(string) {
     var page = path.split("/").pop();
     var name = page.split(".")[0];
 
-    if (search) url = 'http://localhost:27401/api/search/' + name + "/" + search;
+    if (search) url = 'http://localhost:27401/api/search/' + name;
     else url = 'http://localhost:27401/api/read/' + name;
 
     xhr.open('GET', url);
@@ -61,7 +61,7 @@ function searchContentInCreatorMode() {
     var path = window.location.pathname;
     var page = path.split("/").pop();
     var name = page.split(".")[0];
-    if (search) url = 'http://localhost:27401/api/search/' + name + "/creator/" + search;
+    if (search) url = 'http://localhost:27401/api/search/' + name + "/creator";
     else url = 'http://localhost:27401/api/creator/read/' + name;
     xhr.open('GET', url);
     console.log(JSON.parse(localStorage.getItem('user')).token);
