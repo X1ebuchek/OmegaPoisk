@@ -218,6 +218,8 @@ function updateContent(data) {
             option2 = document.createElement('option');
             option2.innerText = 'Нет';
             select.value = data.content.isColored ? 'Да' : 'Нет';
+            if (data.content.isColored) option1.defaultSelected = true;
+            else option2.defaultSelected = true;
             select.appendChild(option1);
             select.appendChild(option2);
             divExtra.appendChild(span1);
@@ -233,6 +235,8 @@ function updateContent(data) {
             option2 = document.createElement('option');
             option2.innerText = 'Нет';
             select.value = data.content.isFree ? 'Да' : 'Нет';
+            if (data.content.isFree) option1.defaultSelected = true;
+            else option2.defaultSelected = true;
             select.appendChild(option1);
             select.appendChild(option2);
             divExtra.appendChild(span1);
