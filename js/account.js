@@ -1,3 +1,5 @@
+document.getElementById('loginAccount').innerText = JSON.parse(localStorage.getItem('user')).login;
+document.getElementById('emailAccount').innerText = JSON.parse(localStorage.getItem('user')).email;
 getLists();
 function getLists(){
     let xhr = new XMLHttpRequest();
