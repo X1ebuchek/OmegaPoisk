@@ -121,6 +121,10 @@ function saveContent() {
         })
 
         isRedirect = true;
+        if (JSON.parse(localStorage.getItem('user')).role == "CREATOR" || JSON.parse(localStorage.getItem('user')).role == "ADMIN"){
+            popup("Успешно добавлено");
+        }
+
         //window.location.href = 'anime.html';
 
     }
@@ -200,3 +204,16 @@ selectType.addEventListener('change', function () {
     }
 
 });
+
+function popup(text){
+    const popupContainer = document.getElementById('popupContainer');
+    document.getElementById('popupText').innerText = text;
+
+    // Перед показом окна устанавливаем новое положение справа
+    popupContainer.style.right = '20px';
+
+    setTimeout(function () {
+        // Закрываем окно через 5 секунд
+        popupContainer.style.right = '-300px'; // устанавливаем положение за пределы экрана
+    }, 5000);
+}
