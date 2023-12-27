@@ -40,8 +40,6 @@ function searchContent(string) {
     else url = 'http://localhost:27401/api/read/' + name;
 
     xhr.open('GET', url);
-    xhr.setRequestHeader("Authorization", "Bearer " + JSON.parse(localStorage.getItem('user')).token);
-    xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
     xhr.send();
 
     xhr.onload = function() {
@@ -66,7 +64,7 @@ function searchContentInCreatorMode() {
     if (search) url = 'http://localhost:27401/api/search/' + name + "/creator/" + search;
     else url = 'http://localhost:27401/api/creator/read/' + name;
     xhr.open('GET', url);
-    console.log(JSON.parse(localStorage.getItem('user')).token);
+    //console.log(JSON.parse(localStorage.getItem('user')).token);
     xhr.setRequestHeader("Authorization", "Bearer " + JSON.parse(localStorage.getItem('user')).token);
     xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
     xhr.send();

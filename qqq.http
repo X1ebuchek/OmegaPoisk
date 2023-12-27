@@ -1,0 +1,2 @@
+GET http://localhost:27401/api/creator/read/anime
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MDM1MDk1MDYsImV4cCI6MTcwMzU5NTkwNiwic3ViIjoib21lZ2EifQ.mQldkbmULBnfTML5jyT4TehG8jT6fWj0Ir9mlytP7BkXqvBrVCp7FbluLEq_sTqgw-8Lvax_IrsRqu1JXmhQ2A

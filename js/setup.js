@@ -595,7 +595,7 @@ const type = urlParams.get('type');
 const creator = urlParams.get('creator');
 
 // Fetch and update anime data
-if (!creator) colorButtons();
+if (!creator && localStorage.getItem('user')) colorButtons();
 if (animeId) {
     getReviews();
     sleep(200)
